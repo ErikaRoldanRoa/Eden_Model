@@ -585,26 +585,29 @@ def draw_diagram_holes(created_holes, holes, time, dim):
     fr_cr.sort()
     fr_final = [len(holes[i]) for i in holes]
     fr_final.sort()
+
     counter_cr = collections.Counter(fr_cr)
+    for j in range(1, list(counter_cr.keys())[-1]):
+        if j not in counter_cr:
+            counter_cr[j] = 0
+    print(counter_cr)
+
     counter_final = collections.Counter(fr_final)
-    labels = []
-    a = np.arange(1, len(counter_cr) + 1)
-    for i in a:
-        labels.append(str(i))
-
     for i in counter_cr.keys():
-        if i not in counter_final.keys():
+        if i not in counter_final:
             counter_final[i] = 0
-
-    x = np.arange(len(labels))
+    print(counter_final)
     width = 0.35
+
+    labels = range(len(counter_cr.keys())+1)
+    x = np.arange(len(labels))
 
     fig, ax = plt.subplots()
     plt.yscale('log')
-    ax.bar(x - width/2, counter_cr.values(), width, color=[(0.44, 0.57, 0.79)], label='Total')
-    ax.bar(x + width/2, counter_final.values(), width, color=[(225/256, 151/256, 76/256)], label='Final')
-
+    ax.bar(np.array(list(counter_cr.keys())) - width/2, counter_cr.values(), width, color=[(0.44, 0.57, 0.79)], label='Total')
+    ax.bar(np.array(list(counter_final.keys())) + width/2, counter_final.values(), width, color=[(225/256, 151/256, 76/256)], label='Final')
     # Add some text for labels, title and custom x-axis tick labels, etc.
+
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Volume')
     ax.set_xticks(x)

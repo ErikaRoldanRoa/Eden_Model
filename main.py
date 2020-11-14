@@ -65,10 +65,10 @@ if file == 0:
         Eden, Perimeter, Betti_2_total_vector, Betti_2_vector_changes, Barcode, Holes, Betti_1_total, \
             Betti_1_total_vector, Created_holes, Process, Perimeter_len, Skipped, I, Final_barcode = grow_eden(Time)
 
-        f = open("3d/sample_time_list.txt", "w+")
-        Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
-        f.write(str(Process_file))
-        f.close()
+        # f = open("3d/sample_time_list.txt", "w+")
+        # Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
+        # f.write(str(Process_file))
+        # f.close()
 
         if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
             os.makedirs('3d/'+str(int(Time/1000))+'k/')

@@ -1,7 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1d53c2df-a0d3-4a1e-a32f-8c30628dd71f" name="Default Changelist" comment="" />
+    <list default="true" id="1d53c2df-a0d3-4a1e-a32f-8c30628dd71f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/0k/eden_999.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/0k/fr_b_1_999.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/0k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/0k/per-b-time_999.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/0k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/10k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/10k/per-b-time_10000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/10k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/1k/eden_1500.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/1k/fr_b_1_1500.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/1k/per-b-time_1500.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/1k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/20k/fr_b_1_20000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/20k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/20k/per-b-time_20000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/20k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/23k/fr_b_1_23935.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/23k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/23k/per-b-time_23935.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/23k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/3k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/3k/per-b-time_3000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/3k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/4k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2d/5k/tro-tetro-minoes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/0k/MAYA.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/10k/fr_b_1_10000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/10k/fr_b_2_10000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/10k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/10k/per-b-time_10000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/10k/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/12k/fr_b_1_12000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/1k/MAYA.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/1k/fr_b_2_1000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/20k/fr_b_2_20000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/fr_b_1_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/fr_b_2_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/per-b-time_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/untitled folder/fr_b_1_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/untitled folder/fr_b_2_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/untitled folder/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/untitled folder/per-b-time_21000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/21k/untitled folder/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/2k/fr_b_1_2000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/2k/fr_b_2_2000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/2k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/2k/per-b-time_2000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/2k/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/30k/fr_b_1_30000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/30k/fr_b_2_30000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/30k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/30k/per-b-time_30000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/30k/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/3k/fr_b_1_3000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/3k/fr_b_2_3000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/3k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/3k/per-b-time_3000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/3k/tri-tetra-cubes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/40k/fr_b_2_40000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/50k/fr_b_2_50000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/50k/holes.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/50k/per-b-time_50000.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/5k/MAYA.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/3d/sample_time_list.txt" beforeDir="false" afterPath="$PROJECT_DIR$/3d/sample_time_list.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e_2d.py" beforeDir="false" afterPath="$PROJECT_DIR$/e_2d.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +96,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.editor" />
   </component>
@@ -106,58 +176,66 @@
     <configuration />
   </component>
   <component name="WindowStateProjectService">
-    <state width="1419" height="583" key="GridCell.Tab.0.bottom" timestamp="1605291798614">
+    <state x="344" y="52" key="CommitChangelistDialog2" timestamp="1605377946646">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1605291798614" />
-    <state width="1419" height="583" key="GridCell.Tab.0.center" timestamp="1605291798613">
+    <state x="344" y="52" key="CommitChangelistDialog2/0.0.1440.900@0.0.1440.900" timestamp="1605377946646" />
+    <state width="1053" height="466" key="DebuggerActiveHint" timestamp="1605377404899">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1605291798613" />
-    <state width="1419" height="583" key="GridCell.Tab.0.left" timestamp="1605291798612">
+    <state width="1053" height="466" key="DebuggerActiveHint/0.0.1440.900@0.0.1440.900" timestamp="1605377404899" />
+    <state width="1419" height="480" key="GridCell.Tab.0.bottom" timestamp="1605377930629">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1605291798612" />
-    <state width="1419" height="583" key="GridCell.Tab.0.right" timestamp="1605291798613">
+    <state width="1419" height="480" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1605377930629" />
+    <state width="1419" height="480" key="GridCell.Tab.0.center" timestamp="1605377930628">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1605291798613" />
-    <state width="1419" height="583" key="GridCell.Tab.1.bottom" timestamp="1605291798615">
+    <state width="1419" height="480" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1605377930628" />
+    <state width="1419" height="480" key="GridCell.Tab.0.left" timestamp="1605377930628">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1605291798615" />
+    <state width="1419" height="480" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1605377930628" />
+    <state width="1419" height="480" key="GridCell.Tab.0.right" timestamp="1605377930629">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1419" height="480" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1605377930629" />
+    <state width="1419" height="65" key="GridCell.Tab.1.bottom" timestamp="1605377855344">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1419" height="65" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1605377855344" />
     <state width="1419" height="417" key="GridCell.Tab.1.bottom/65.23.1375.877@65.23.1375.877" timestamp="1605213103049" />
     <state width="1419" height="499" key="GridCell.Tab.1.bottom/68.23.1372.877@68.23.1372.877" timestamp="1605199632177" />
     <state width="1419" height="412" key="GridCell.Tab.1.bottom/72.23.1368.877@72.23.1368.877" timestamp="1605282236869" />
     <state width="1419" height="285" key="GridCell.Tab.1.bottom/77.23.1363.877@77.23.1363.877" timestamp="1605283615235" />
-    <state width="1419" height="657" key="GridCell.Tab.1.bottom/81.23.1359.877@81.23.1359.877" timestamp="1605290626233" />
-    <state width="1419" height="583" key="GridCell.Tab.1.center" timestamp="1605291798615">
+    <state width="1419" height="536" key="GridCell.Tab.1.bottom/81.23.1359.877@81.23.1359.877" timestamp="1605375567965" />
+    <state width="1419" height="65" key="GridCell.Tab.1.center" timestamp="1605377855343">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1605291798615" />
+    <state width="1419" height="65" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1605377855343" />
     <state width="1419" height="417" key="GridCell.Tab.1.center/65.23.1375.877@65.23.1375.877" timestamp="1605213103048" />
     <state width="1419" height="499" key="GridCell.Tab.1.center/68.23.1372.877@68.23.1372.877" timestamp="1605199632176" />
     <state width="1419" height="412" key="GridCell.Tab.1.center/72.23.1368.877@72.23.1368.877" timestamp="1605282236868" />
     <state width="1419" height="285" key="GridCell.Tab.1.center/77.23.1363.877@77.23.1363.877" timestamp="1605283615234" />
-    <state width="1419" height="657" key="GridCell.Tab.1.center/81.23.1359.877@81.23.1359.877" timestamp="1605290626232" />
-    <state width="1419" height="583" key="GridCell.Tab.1.left" timestamp="1605291798614">
+    <state width="1419" height="536" key="GridCell.Tab.1.center/81.23.1359.877@81.23.1359.877" timestamp="1605375567964" />
+    <state width="1419" height="65" key="GridCell.Tab.1.left" timestamp="1605377855343">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1605291798614" />
+    <state width="1419" height="65" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1605377855343" />
     <state width="1419" height="417" key="GridCell.Tab.1.left/65.23.1375.877@65.23.1375.877" timestamp="1605213103047" />
     <state width="1419" height="499" key="GridCell.Tab.1.left/68.23.1372.877@68.23.1372.877" timestamp="1605199632175" />
     <state width="1419" height="412" key="GridCell.Tab.1.left/72.23.1368.877@72.23.1368.877" timestamp="1605282236867" />
     <state width="1419" height="285" key="GridCell.Tab.1.left/77.23.1363.877@77.23.1363.877" timestamp="1605283615233" />
-    <state width="1419" height="657" key="GridCell.Tab.1.left/81.23.1359.877@81.23.1359.877" timestamp="1605290626231" />
-    <state width="1419" height="583" key="GridCell.Tab.1.right" timestamp="1605291798615">
+    <state width="1419" height="536" key="GridCell.Tab.1.left/81.23.1359.877@81.23.1359.877" timestamp="1605375567963" />
+    <state width="1419" height="65" key="GridCell.Tab.1.right" timestamp="1605377855344">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="583" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1605291798615" />
+    <state width="1419" height="65" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1605377855344" />
     <state width="1419" height="417" key="GridCell.Tab.1.right/65.23.1375.877@65.23.1375.877" timestamp="1605213103048" />
     <state width="1419" height="499" key="GridCell.Tab.1.right/68.23.1372.877@68.23.1372.877" timestamp="1605199632177" />
     <state width="1419" height="412" key="GridCell.Tab.1.right/72.23.1368.877@72.23.1368.877" timestamp="1605282236869" />
     <state width="1419" height="285" key="GridCell.Tab.1.right/77.23.1363.877@77.23.1363.877" timestamp="1605283615234" />
-    <state width="1419" height="657" key="GridCell.Tab.1.right/81.23.1359.877@81.23.1359.877" timestamp="1605290626232" />
+    <state width="1419" height="536" key="GridCell.Tab.1.right/81.23.1359.877@81.23.1359.877" timestamp="1605375567964" />
     <state x="221" y="89" key="SettingsEditor" timestamp="1605104577833">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
@@ -176,19 +254,9 @@
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/e_3d.py</url>
-          <line>84</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>59</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/e_2d.py</url>
-          <line>601</line>
-          <option name="timeStamp" value="67" />
+          <line>633</line>
+          <option name="timeStamp" value="80" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
