@@ -289,6 +289,7 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, time):
 
 def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N):
     n = int(time/10)
+
     def func(x, a, b):
         return a * x ** b
     ydata_f = Betti_1_total_vector

@@ -630,6 +630,7 @@ def draw_diagram_holes(created_holes, holes, time, dim):
     plt.close()
 
 def plot_b_per(b1, p2, time, times=None, N=0):
+    n = int(time/10)
     if times == None:
         times = np.arange(1, time+1)
 
@@ -639,23 +640,19 @@ def plot_b_per(b1, p2, time, times=None, N=0):
     xdata_f = times
     ydata = ydata_f
     xdata = xdata_f
-    # plt.xscale('log')
-    # plt.yscale('log')
+    plt.xscale('log')
+    plt.yscale('log')
     # plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
     # plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
-    plt.plot(xdata_f, ydata_f, 'm-', label=r'$\beta_1(t)$ data',  linewidth=0.75)
-    # try:
+    plt.plot(xdata_f[n:], ydata_f[n:], 'm-', label=r'$\beta_1(t)$ data',  linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
-    # except:
-    #     popt, pcov = curve_fit(func, xdata, ydata, bounds=([0., 0., -10], [10., 2., 900]))
-
-    plt.plot(xdata_f, func(xdata_f, *popt), 'm--', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt), linewidth=0.75)
+    plt.plot(xdata_f[n:], func(xdata_f[n:], *popt), 'm--', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt), linewidth=0.75)
 
     ydata = p2
     xdata = times
-    plt.plot(xdata, ydata, color='orange', linestyle='solid', label=r'$P_{2}(t)$ data',  linewidth=0.75)
+    plt.plot(xdata[n:], ydata[n:], color='orange', linestyle='solid', label=r'$P(t)$ data',  linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
-    plt.plot(xdata, func(xdata, *popt), color='orange', linestyle='dashed', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt),  linewidth=0.75)
+    plt.plot(xdata[n:], func(xdata[n:], *popt), color='orange', linestyle='dashed', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt),  linewidth=0.75)
 
     plt.xlabel('t')
     plt.ylabel('data')
