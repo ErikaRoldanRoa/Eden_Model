@@ -91,6 +91,23 @@ if file == 0:
                     "\n\tcmds.move(Eden[i][0],Eden[i][1],Eden[i][2],aux)")
             f.close()
             print("We created txt file \"MAYA\" for you. Just copy paste its content to MAYA!")
+    if dim == 4:
+        from e_4d import grow_eden, draw_frequencies_3, return_frequencies_3, plot_b_per
+        from e_2d import draw_diagram_holes
+        Eden, Perimeter, betti_3_vector, barcode, Holes, betti_3_total, Created_holes, Process, Perimeter_len,\
+            Betti_3_total_vector = grow_eden(Time)
+        f = open("4d/sample_time_list.txt", "w+")
+        Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
+        f.write(str(Process_file))
+        f.close()
+        if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
+            os.makedirs('4d/'+str(int(Time/1000))+'k/')
+        print("\nCalculating frequencies of betti_3...")
+        freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
+        draw_frequencies_3(freq, Time, changes)
+        draw_diagram_holes(Created_holes, Holes, Time, dim)
+        plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
+
 
 """FILE CASE"""
 if file == 1:
@@ -151,5 +168,23 @@ if file == 1:
                     "\n\tcmds.move(Eden[i][0],Eden[i][1],Eden[i][2],aux)")
             f.close()
             print("We created txt file \"MAYA\" for you. Just copy paste its content to MAYA!")
+    if dim == 4:
+        from e_4d import grow_eden_debugging, draw_frequencies_3, return_frequencies_3, plot_b_per, read_eden_txt
+        from e_2d import draw_diagram_holes
+        Eden_f = read_eden_txt("4d/sample_time_list.txt")
+        Eden = [x[0] for x in Eden_f]
+        Times = [x[1] for x in Eden_f]
+        Time = len(Eden)
+        print("\nComputing persistent homology...")
+        Eden, Perimeter, betti_3_vector, barcode, Holes, betti_3_total, Created_holes, Perimeter_len,\
+            Betti_3_total_vector = grow_eden_debugging(len(Eden), Eden)
+        if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
+            os.makedirs('4d/'+str(int(Time/1000))+'k/')
+        print("\nCalculating frequencies of betti_3...")
+        freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
+        draw_frequencies_3(freq, Time, changes)
+        draw_diagram_holes(Created_holes, Holes, Time, dim)
+        plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
+
 
 print("WE ARE DONE!")
