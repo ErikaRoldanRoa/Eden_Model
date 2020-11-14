@@ -16,27 +16,28 @@ def read_value(arr):
 print('Welcome to EDEN Model!')
 
 print('Please, enter the desirable dimension of your model (from 2 to 5): ')
-dim = read_value([2, 3, 4, 5])
-# dim = 3
+# dim = read_value([2, 3, 4, 5])
+dim = 4
 
 print('Do you have a file with a model? \n 1 -- you have a file \n 0 -- you want to generate a new model \n')
-file = read_value([0, 1])
-# file = 1
+# file = read_value([0, 1])
+file = 1
 
 if dim <= 3:
     print('Do you want a picture of your model? (with a large a model it can take time) \n 1 -- yes \n 0 -- no \n')
-    pic = read_value([0, 1])
-    # pic = 0
+    # pic = read_value([0, 1])
+    pic = 0
 
 """NO FILE CASE"""
 if file == 0:
     print('How many tiles would you like in your model?')
-    while True:
-        try:
-            Time = int(input())
-            break
-        except ValueError:
-            print("Oops!  That was no valid number.  Try again...")
+    # while True:
+    #     try:
+    #         Time = int(input())
+    #         break
+    #     except ValueError:
+    #         print("Oops!  That was no valid number.  Try again...")
+    Time = 10000
     if dim == 2:
         from e_2d import grow_eden, plot_b_per, draw_diagram_holes, num_holes, draw_tri_tetra, draw_barcode, \
             draw_polyomino, return_frequencies_1, draw_frequencies_1
