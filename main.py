@@ -96,10 +96,10 @@ if file == 0:
         from e_2d import draw_diagram_holes
         Eden, Perimeter, betti_3_vector, barcode, Holes, betti_3_total, Created_holes, Process, Perimeter_len,\
             Betti_3_total_vector = grow_eden(Time)
-        f = open("4d/sample_time_list.txt", "w+")
-        Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
-        f.write(str(Process_file))
-        f.close()
+        # f = open("4d/sample_time_list.txt", "w+")
+        # Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
+        # f.write(str(Process_file))
+        # f.close()
         if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
             os.makedirs('4d/'+str(int(Time/1000))+'k/')
         print("\nCalculating frequencies of betti_3...")
