@@ -590,13 +590,11 @@ def draw_diagram_holes(created_holes, holes, time, dim):
     for j in range(1, list(counter_cr.keys())[-1]):
         if j not in counter_cr:
             counter_cr[j] = 0
-    print(counter_cr)
 
     counter_final = collections.Counter(fr_final)
     for i in counter_cr.keys():
         if i not in counter_final:
             counter_final[i] = 0
-    print(counter_final)
     width = 0.35
 
     labels = range(len(counter_cr.keys())+1)
