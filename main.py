@@ -73,6 +73,7 @@ if file == 0:
 
         if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
             os.makedirs('3d/'+str(int(Time/1000))+'k/')
+
         print("\nCalculating frequencies of betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
         draw_frequencies_1(freq, Time, changes)
@@ -83,6 +84,10 @@ if file == 0:
         draw_tri_tetra(Tricube, Tricube_f, Tetracube, Tetracube_f, Time)
         plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
+
+        Filename = convert_gudhi(Process)
+        gudhi_analysis(Filename, Final_barcode, Time)
+
         if pic == 1:
             a = 1
             f = open("3d/"+str(int(Time/1000))+"k/MAYA.txt", "w+")
@@ -163,6 +168,11 @@ if file == 1:
         draw_tri_tetra(Tricube, Tricube_f, Tetracube, Tetracube_f, Time)
         plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
+
+        print("Creating Gudhi file...")
+        Filename = convert_gudhi(Process)
+        gudhi_analysis(Filename, Final_barcode, Time)
+
         if pic == 1:
             a = 1
             f = open("3d/"+str(int(Time/1000))+"k/MAYA.txt", "w+")
