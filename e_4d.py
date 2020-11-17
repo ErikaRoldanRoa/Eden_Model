@@ -15,7 +15,87 @@ import collections
 import matplotlib.patches as mpatches
 from scipy.optimize import curve_fit
 
-################
+"""GUDHI"""
+def convert_gudhi(process):
+
+    min_x = min(process, key=lambda x:x[0])
+    max_x = max(process, key=lambda x:x[0])
+    min_y = min(process, key=lambda x:x[1])
+    max_y = max(process, key=lambda x:x[1])
+    min_z = min(process, key=lambda x:x[2])
+    max_z = max(process, key=lambda x:x[2])
+    min_w = min(process, key=lambda x:x[3])
+    max_w = max(process, key=lambda x:x[3])
+    dimension = 4
+    long = max_x[0] + ((-1)*(min_x[0])) + 1
+    wide = max_y[1] + ((-1)*(min_y[1])) + 1
+    deep = max_z[2] + ((-1)*(min_z[2])) + 1
+    blup = max_w[3] + ((-1)*(min_w[3])) + 1
+    time = len(process)
+    filename = '4d/gudhi_'+str(time)+'.txt'
+
+    total = long*wide*deep*blup
+    pbar = tqdm(total=total)
+
+    with open(filename, 'w+') as f:
+        f.writelines('%d\n' % dimension)
+        f.writelines('%d\n' % long)
+        f.writelines('%d\n' % wide)
+        f.writelines('%d\n' % deep)
+        f.writelines('%d\n' % blup)
+        for w in range(min_w[3], max_w[3] + 1):
+            for z in range(min_z[2], max_z[2] + 1):
+                for i in range(min_y[1], max_y[1] + 1):
+                    for j in range(min_x[0], max_x[0] + 1):
+                        pbar.update(1)
+                        if (j, i, z, w) in process:
+                            f.writelines('%d\n' % process.index((j, i, z, w)))
+                        else:
+                            f.writelines('inf\n')
+    return filename
+
+def gudhi_analysis(filename, final_barcode, time):
+    eden_model = gd.CubicalComplex(perseus_file=filename)
+    eden_model.persistence()
+    # A = eden_model.persistence_intervals_in_dimension(1)
+    # B = [elem for elem in A if elem[1] == float('inf')]
+    barcode_gudhi = eden_model.persistence_intervals_in_dimension(3)
+    final = np.array(final_barcode)
+    barcode_gudhi_sorted = barcode_gudhi.sort()
+    final_sorted = final.sort()
+    if barcode_gudhi_sorted == final_sorted:
+        print("Gudhi Barcode agrees with our Barcode!")
+    else:
+        print("!!!!")
+    pers_1 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 1]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_1$')
+    plt.savefig('4d/'+str(int(time/1000))+'k/barcode_1_'+str(time)+'.png', dpi=1200)
+
+    pers_2 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 2]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_2$')
+    plt.savefig('4d/'+str(int(time/1000))+'k/barcode_2_'+str(time)+'.png', dpi=1200)
+
+    pers_3 = [x for x in eden_model.persistence() if x[0] == 3]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(pers_3, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_3$')
+    plt.savefig('4d/'+str(int(time/1000))+'k/barcode_3_'+str(time)+'.png', dpi=1200)
+
+def convert_perseus_2(Process):
+
+    dimension = 4
+    with open('1000000_1_4D.txt','w') as f:
+        f.writelines( '%d\n' % dimension)
+        i = 0
+        for x in Process:
+            i = i + 1
+            y = (x[0], x[1], x [2], x[3], i)
+            f.writelines( '%s %s %s %s %s\n' % y)
+
 """GROWING"""
 def grow_eden(t):
 
@@ -163,11 +243,10 @@ def grow_eden(t):
         betti_3_vector = betti_3_vector + [betti_3]
         betti_3_total = betti_3_total + betti_3
         betti_3_total_vector += [betti_3_total]
-#        final_barcode = barcode_forest(barcode, tags)
+    final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_3_vector, barcode, holes, betti_3_total, created_holes, process,\
-           perimeter_len, betti_3_total_vector
-    #, final_barcode
+           perimeter_len, betti_3_total_vector, final_barcode
 
 def grow_eden_debugging(t, ordered_tiles):
 
@@ -204,9 +283,10 @@ def grow_eden_debugging(t, ordered_tiles):
         betti_3_vector = betti_3_vector + [betti_3]
         betti_3_total = betti_3_total + betti_3
         betti_3_total_vector += [betti_3_total]
+    final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_3_vector, barcode, holes, betti_3_total, created_holes,\
-           perimeter_len, betti_3_total_vector
+           perimeter_len, betti_3_total_vector, final_barcode
 
 """PLOTING"""
 def draw_frequencies_3(dict, time, changes):
@@ -728,50 +808,6 @@ def bars_from_tree(b, tag):
     bars = bars + [b[(tag,)]]
     return bars
 
-#######################
-def convert_perseus(Process):
 
-    min_x = min(Process, key = lambda x:x[0])
-    max_x = max(Process, key = lambda x:x[0])
-    min_y = min(Process, key = lambda x:x[1])
-    max_y = max(Process, key = lambda x:x[1])
-    min_z = min(Process, key = lambda x:x[2])
-    max_z = max(Process, key = lambda x:x[2])
-    min_w = min(Process, key = lambda x:x[3])
-    max_w = max(Process, key = lambda x:x[3])
-    dimension = 4
-    long = max_x[0] + ((-1)*(min_x[0])) + 1
-    wide = max_y[1] + ((-1)*(min_y[1])) + 1
-    deep = max_z[2] + ((-1)*(min_z[2])) + 1
-    blup = max_w[3] + ((-1)*(min_w[3])) + 1
-    with open('200000_try_4D.txt','w') as f:
-        f.writelines( '%d\n' % dimension)
-        f.writelines( '%d\n' % long)
-        f.writelines( '%d\n' % wide)
-        f.writelines( '%d\n' % deep)
-        f.writelines( '%d\n' % blup)
-        for w in range (min_w[3], max_w[3] + 1):
-            for z in range (min_z[2], max_z[2] + 1):
-                for i in range(min_y[1], max_y[1] + 1):
-                    for j in range(min_x[0], max_x[0] + 1) :
- #                   print((j,i, z))
-                        if (j, i, z, w) in Process:
-                            f.writelines( '%d\n' % Process.index((j, i, z, w)))
- #                       print(Process.index((j,i,z))+1)
-                        else:
-                            f.writelines( 'inf\n')
- #                       print(-1)
-
-def convert_perseus_2(Process):
-
-    dimension = 4
-    with open('1000000_1_4D.txt','w') as f:
-        f.writelines( '%d\n' % dimension)
-        i = 0
-        for x in Process:
-            i = i + 1
-            y = (x[0], x[1], x [2], x[3], i)
-            f.writelines( '%s %s %s %s %s\n' % y)
-##########################
 
 
