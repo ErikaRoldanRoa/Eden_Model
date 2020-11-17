@@ -249,4 +249,4 @@ if file == 1:
         gudhi_analysis(Filename, Final_barcode, Time)
 
 
-print("WE ARE DONE!")
+print("WE ARE DONE! CHECK THE FOLDER!")

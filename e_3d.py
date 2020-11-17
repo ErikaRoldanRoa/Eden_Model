@@ -45,9 +45,22 @@ def convert_gudhi(process):
                         f.writelines('%d\n' % process.index((j, i, z)))
                     else:
                         f.writelines('inf\n')
+    pbar.close()
     return filename
 
 def gudhi_analysis(filename, final_barcode, time):
+    print('What is the minimum length of the interval? Enter 3 numbers (b1, b2) one by one. ')
+    length = []
+    for i in range(2):
+        print("Minimal length for Betti_"+str(i+1)+':')
+        while True:
+            try:
+                x = int(input())
+                length.append(x)
+                break
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+    print("\nCreating Cubical Complex...")
     eden_model = gd.CubicalComplex(perseus_file=filename)
     eden_model.persistence()
     # A = eden_model.persistence_intervals_in_dimension(1)
@@ -59,13 +72,13 @@ def gudhi_analysis(filename, final_barcode, time):
     final_sorted = final.sort()
     if A_sorted == final_sorted:
         print("Gudhi Barcode agrees with our Barcode!")
-    pers_1 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 1]
+    pers_1 = [x for x in eden_model.persistence(min_persistence=length[0]) if x[0] == 1]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_1$')
     plt.savefig('3d/'+str(int(time/1000))+'k/barcode_1_'+str(time)+'.png', dpi=1200)
 
-    pers_2 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 2]
+    pers_2 = [x for x in eden_model.persistence(min_persistence=length[1]) if x[0] == 2]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
@@ -202,7 +215,7 @@ def grow_eden_debugging(t, ordered_tiles):
 
         l = len(perimeter)
         perimeter_len = perimeter_len + [l]
-
+    pbar.close()
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_2_total_vector, betti_1_total_vector, barcode, holes, betti_2_total, betti_1_total, \
@@ -490,7 +503,7 @@ def return_frequencies_1(vect, time):
     # values = list(set(changes))
     # values.sort()
     values = [-3, -2, -1, 0, 1, 2, 3, 4]
-    freq = {i : [0] for i in values}
+    freq = {i: [0] for i in values}
 
     for i in tqdm(range(1, time+1), position=0, leave=True):
         counter = collections.Counter(changes[:i])

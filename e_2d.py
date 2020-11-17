@@ -81,6 +81,7 @@ def grow_eden(t):
         betti_1_total += betti_1
         betti_1_total_vector = betti_1_total_vector + [betti_1_total]
 
+    pbar.close()
     final_barcode = barcode_forest(barcode, tags)
 
     l = len(perimeter)
@@ -133,6 +134,7 @@ def grow_eden_debugging(t, ordered_tiles):
             raise ValueError('betti_1_total does not equal betti_1 with euler')
         len_perimeter += [len(perimeter)]
 
+    pbar.close()
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_1_vector, betti_1_total_vector, barcode, holes, betti_1_total, betti_1_euler_total, created_holes, tags, final_barcode, len_perimeter

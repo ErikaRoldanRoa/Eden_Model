@@ -52,7 +52,7 @@ def grow_eden(t):
 
         l = len(perimeter)
         perimeter_len = perimeter_len + [l]
-
+    pbar.close()
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_4_total_vector, barcode, holes, created_holes, process, perimeter_len, final_barcode
