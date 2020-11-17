@@ -60,7 +60,7 @@ if file == 0:
         draw_diagram_holes(Created_holes, Holes, Time, dim)
     if dim == 3:
         from e_3d import grow_eden, return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
-            return_frequencies_2, draw_frequencies_2, grow_eden_debugging
+            return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
         print("\nBuilding a model...")
         Eden, Perimeter, Betti_2_total_vector, Betti_2_vector_changes, Barcode, Holes, Betti_1_total, \
@@ -138,16 +138,19 @@ if file == 1:
             draw_polyomino(Eden, Time)
     if dim == 3:
         from e_3d import return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
-            return_frequencies_2, draw_frequencies_2, grow_eden_debugging, read_eden_txt
+            return_frequencies_2, draw_frequencies_2, grow_eden_debugging, read_eden_txt,\
+            convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
         Eden_f = read_eden_txt("3d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
+        Process = Eden
 
         print("\nComputing persistent homology...")
         Eden, Perimeter, Betti_2_total_vector, Betti_1_total_vector, Barcode, Holes, \
-            Betti_2_total, Betti_1_total, Created_holes, Perimeter_len = grow_eden_debugging(len(Eden), Eden)
+            Betti_2_total, Betti_1_total, Created_holes, Perimeter_len, \
+            Final_barcode = grow_eden_debugging(len(Eden), Eden)
         if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
             os.makedirs('3d/'+str(int(Time/1000))+'k/')
         print("\nCalculating frequencies of betti_1...")

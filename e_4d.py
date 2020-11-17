@@ -9,7 +9,7 @@ Created on Mon Mar 16 09:55:14 2020
 import random
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-# import gudhi as gd
+import gudhi as gd
 import numpy as np
 import collections
 import matplotlib.patches as mpatches

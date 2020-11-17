@@ -8,11 +8,78 @@ Created on Thu Nov 21 19:34:33 2019
 import random
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-# import gudhi as gd
+import gudhi as gd
 import numpy as np
 import collections
 import matplotlib.patches as mpatches
 from scipy.optimize import curve_fit
+
+"""GUDHI"""
+def convert_gudhi(process):
+    min_x = min(process, key=lambda x: x[0])
+    max_x = max(process, key=lambda x: x[0])
+    min_y = min(process, key=lambda x: x[1])
+    max_y = max(process, key=lambda x: x[1])
+    min_z = min(process, key=lambda x: x[2])
+    max_z = max(process, key=lambda x: x[2])
+    dimension = 3
+    long = max_x[0] + ((-1) * (min_x[0])) + 1
+    wide = max_y[1] + ((-1) * (min_y[1])) + 1
+    deep = max_z[2] + ((-1) * (min_z[2])) + 1
+    time = len(process)
+    filename = 'gudhi_'+str(time)+'.txt'
+    with open(filename, 'w+') as f:
+        f.writelines('%d\n' % dimension)
+        f.writelines('%d\n' % long)
+        f.writelines('%d\n' % wide)
+        f.writelines('%d\n' % deep)
+        for z in range(min_z[2], max_z[2] + 1):
+            for i in range(min_y[1], max_y[1] + 1):
+                for j in range(min_x[0], max_x[0] + 1):
+                    if (j, i, z) in process:
+                        f.writelines('%d\n' % process.index((j, i, z)))
+                    else:
+                        f.writelines('inf\n')
+    return filename
+
+def gudhi_analysis(filename, final_barcode, time):
+    eden_model = gd.CubicalComplex(perseus_file=filename)
+    eden_model.persistence()
+    # A = eden_model.persistence_intervals_in_dimension(1)
+    # B = [elem for elem in A if elem[1] == float('inf')]
+    A = eden_model.persistence_intervals_in_dimension(2)
+    B = [elem for elem in A if elem[1] == float('inf')]
+    final = np.array(final_barcode)
+    A_sorted = A.sort()
+    final_sorted = final.sort()
+    if A_sorted == final_sorted:
+        print("Gudhi Barcode agrees with our Barcode!")
+    pers_1 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 1]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_1$')
+    plt.savefig('3d/'+str(int(time/1000))+'k/barcode_1_'+str(time)+'.png', dpi=1200)
+
+    pers_2 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 2]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_2$')
+    plt.savefig('3d/'+str(int(time/1000))+'k/barcode_2_'+str(time)+'.png', dpi=1200)
+    # plt.show()
+
+    # gd.plot_persistence_barcode(eden_model.persistence(), legend=True)
+    # gd.plot_persistence_density(eden_model.persistence(), legend=True)
+    # a = 10
+
+def convert_perseus_2(process):
+    dimension = 3
+    with open('1000000_3D_12_final.txt', 'w') as f:
+        f.writelines('%d\n' % dimension)
+        i = 0
+        for x in process:
+            i = i + 1
+            y = (x[0], x[1], x[2], i)
+            f.writelines('%s %s %s %s\n' % y)
 
 """GROWING"""
 def grow_eden(t):
@@ -108,6 +175,7 @@ def grow_eden_debugging(t, ordered_tiles):
 
     betti_1_total_vector = [0]
     pbar = tqdm(total=t, position=0, leave=True)
+    pbar.update(1)
     for i in (range(1, t)):
         pbar.update(1)
 
@@ -136,10 +204,10 @@ def grow_eden_debugging(t, ordered_tiles):
         l = len(perimeter)
         perimeter_len = perimeter_len + [l]
 
-    #        final_barcode = barcode_forest(barcode, tags)
+    final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_2_total_vector, betti_1_total_vector, barcode, holes, betti_2_total, betti_1_total, \
-           created_holes, perimeter_len  # , tags, final_barcode
+           created_holes, perimeter_len, final_barcode  # , tags, final_barcode
 
 
 """PLOTING"""
@@ -326,6 +394,7 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N):
 
     plt.savefig('3d/'+str(int(time/1000))+'k/per-b-time_'+str(time)+'.png', dpi=1200)
     # plt.show()
+    plt.close()
 
 
 """SUPPLEMENTARY FUNCTIONS"""
@@ -922,7 +991,6 @@ def barcode_forest(barcode, tags):
         bars_hole = bars_hole + bars_from_tree(b, x)
     return bars_pure + bars_hole
 
-
 def bars_from_tree(b, tag):
     n = max(len(x) for x in b)
     bars = []
@@ -962,43 +1030,6 @@ def bars_from_tree(b, tag):
     bars = bars + [b[(tag,)]]
     return bars
 
-
-def convert_perseus(process):
-    min_x = min(process, key=lambda x: x[0])
-    max_x = max(process, key=lambda x: x[0])
-    min_y = min(process, key=lambda x: x[1])
-    max_y = max(process, key=lambda x: x[1])
-    min_z = min(process, key=lambda x: x[2])
-    max_z = max(process, key=lambda x: x[2])
-    dimension = 3
-    long = max_x[0] + ((-1) * (min_x[0])) + 1
-    wide = max_y[1] + ((-1) * (min_y[1])) + 1
-    deep = max_z[2] + ((-1) * (min_z[2])) + 1
-    with open('300000_3D_1_final.txt', 'w') as f:
-        f.writelines('%d\n' % dimension)
-        f.writelines('%d\n' % long)
-        f.writelines('%d\n' % wide)
-        f.writelines('%d\n' % deep)
-        for z in range(min_z[2], max_z[2] + 1):
-            for i in range(min_y[1], max_y[1] + 1):
-                for j in range(min_x[0], max_x[0] + 1):
-                    #                   print((j,i, z))
-                    if (j, i, z) in process:
-                        f.writelines('%d\n' % process.index((j, i, z)))
-                    #                       print(process.index((j,i,z))+1)
-                    else:
-                        f.writelines('inf\n')
-
-
-def convert_perseus_2(process):
-    dimension = 3
-    with open('1000000_3D_12_final.txt', 'w') as f:
-        f.writelines('%d\n' % dimension)
-        i = 0
-        for x in process:
-            i = i + 1
-            y = (x[0], x[1], x[2], i)
-            f.writelines('%s %s %s %s\n' % y)
 
 
 # Time = 10000
