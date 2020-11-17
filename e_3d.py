@@ -114,7 +114,6 @@ def grow_eden(t):
     # for i in (range(1, t)):
     while size < t:
         l = len(perimeter)
-
         x = random.randint(0, l - 1)
         tile_selected = perimeter[x]
         perimeter.pop(x)
@@ -209,8 +208,7 @@ def grow_eden_debugging(t, ordered_tiles):
     return eden, perimeter, betti_2_total_vector, betti_1_total_vector, barcode, holes, betti_2_total, betti_1_total, \
            created_holes, perimeter_len, final_barcode  # , tags, final_barcode
 
-
-"""PLOTING"""
+"""PLOTTING"""
 def draw_frequencies_1(dict, time, changes):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
