@@ -115,7 +115,10 @@ if file == 0:
         freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
         draw_frequencies_3(freq, Time, changes)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
-        plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
+        try:
+            plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
+        except RuntimeError:
+            print("Unable to draw \"Betti vs Perimeter\". The Complex is too small.")
 
         print("\nCreating Gudhi file...")
         Filename = convert_gudhi(Process)
