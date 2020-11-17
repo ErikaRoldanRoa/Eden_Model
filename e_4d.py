@@ -31,6 +31,7 @@ def convert_gudhi(process):
     wide = max_y[1] + ((-1)*(min_y[1])) + 1
     deep = max_z[2] + ((-1)*(min_z[2])) + 1
     blup = max_w[3] + ((-1)*(min_w[3])) + 1
+
     time = len(process)
     filename = '4d/gudhi_'+str(time)+'.txt'
 
@@ -55,6 +56,17 @@ def convert_gudhi(process):
     return filename
 
 def gudhi_analysis(filename, final_barcode, time):
+    print('What is the minimum length of the interval? Enter 3 numbers (b1, b2, b3) one by one. ')
+    length = []
+    for i in range(3):
+        while True:
+            try:
+                x = int(input())
+                length.append(x)
+                break
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
+    print("\nCreating Cubical Complex...")
     eden_model = gd.CubicalComplex(perseus_file=filename)
     eden_model.persistence()
     # A = eden_model.persistence_intervals_in_dimension(1)
@@ -64,22 +76,26 @@ def gudhi_analysis(filename, final_barcode, time):
     barcode_gudhi_sorted = barcode_gudhi.sort()
     final_sorted = final.sort()
     if barcode_gudhi_sorted == final_sorted:
-        print("Gudhi Barcode agrees with our Barcode!")
+        print("\nGudhi Barcode agrees with our Barcode!")
     else:
         print("!!!!")
-    pers_1 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 1]
+
+    print("\nDrawing Barcode for Betti_1...")
+    pers_1 = [x for x in eden_model.persistence(min_persistence=length[0]) if x[0] == 1]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_1$')
     plt.savefig('4d/'+str(int(time/1000))+'k/barcode_1_'+str(time)+'.png', dpi=1200)
 
-    pers_2 = [x for x in eden_model.persistence(min_persistence=int(time/5)) if x[0] == 2]
+    print("\nDrawing Barcode for Betti_2...")
+    pers_2 = [x for x in eden_model.persistence(min_persistence=length[1]) if x[0] == 2]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
     plt.savefig('4d/'+str(int(time/1000))+'k/barcode_2_'+str(time)+'.png', dpi=1200)
 
-    pers_3 = [x for x in eden_model.persistence() if x[0] == 3]
+    print("\nDrawing Barcode for Betti_3...")
+    pers_3 = [x for x in eden_model.persistence(min_persistence=length[2]) if x[0] == 3]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_3, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_3$')
@@ -100,7 +116,7 @@ def convert_perseus_2(Process):
 def grow_eden(t):
 
     process = [(0, 0, 0, 0)]
-    perimeter_len = [0]
+    perimeter_len = [8]
     eden, perimeter = start_eden()
 
     l = len(perimeter)
@@ -119,119 +135,8 @@ def grow_eden(t):
     pbar.update(1)
     for i in range(1, t):
         pbar.update(1)
-        if i == 100000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 500000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 600000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 700000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 800000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 900000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 1000000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 1100000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 1300000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
-        if i == 1500000:
-            Out_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] == 0]
-            In_Per = [elem for elem in eden if eden[elem][0] == 0 and eden[elem][2] != 0]
-            Out = len(Out_Per)
-            In = len(In_Per)
-            Total_per = Out + In
-            Out_p = Out /Total_per
-            In_p = In/Total_per
-            print(t)
-            print(Out_p, In_p)
-            print(Total_per)
         l = len(perimeter)
-        perimeter_len = perimeter_len + [l]
-        x = random.randint(0,l-1)
+        x = random.randint(0, l-1)
         tile_selected = perimeter[x]
         perimeter.pop(x)
 
@@ -243,6 +148,9 @@ def grow_eden(t):
         betti_3_vector = betti_3_vector + [betti_3]
         betti_3_total = betti_3_total + betti_3
         betti_3_total_vector += [betti_3_total]
+
+        l = len(perimeter)
+        perimeter_len = perimeter_len + [l]
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_3_vector, barcode, holes, betti_3_total, created_holes, process,\
@@ -288,7 +196,7 @@ def grow_eden_debugging(t, ordered_tiles):
     return eden, perimeter, betti_3_vector, barcode, holes, betti_3_total, created_holes,\
            perimeter_len, betti_3_total_vector, final_barcode
 
-"""PLOTING"""
+"""PLOTTING"""
 def draw_frequencies_3(dict, time, changes):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
