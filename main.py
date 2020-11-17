@@ -85,7 +85,9 @@ if file == 0:
         plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
 
+        print("\n\nCreating Gudhi file...")
         Filename = convert_gudhi(Process)
+        print("\n\nDrawing Barcodes...")
         gudhi_analysis(Filename, Final_barcode, Time)
 
         if pic == 1:

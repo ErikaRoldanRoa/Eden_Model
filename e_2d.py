@@ -631,7 +631,7 @@ def draw_diagram_holes(created_holes, holes, time, dim):
 
 def plot_b_per(b1, p2, time, times=None, N=0):
     n = int(time/10)
-    if times == None:
+    if times is None:
         times = np.arange(1, time+1)
 
     def func(x, a, b):

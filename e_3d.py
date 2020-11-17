@@ -27,7 +27,11 @@ def convert_gudhi(process):
     wide = max_y[1] + ((-1) * (min_y[1])) + 1
     deep = max_z[2] + ((-1) * (min_z[2])) + 1
     time = len(process)
-    filename = 'gudhi_'+str(time)+'.txt'
+    filename = '3d/gudhi_'+str(time)+'.txt'
+
+    total = long*wide*deep
+    pbar = tqdm(total=total)
+
     with open(filename, 'w+') as f:
         f.writelines('%d\n' % dimension)
         f.writelines('%d\n' % long)
@@ -36,6 +40,7 @@ def convert_gudhi(process):
         for z in range(min_z[2], max_z[2] + 1):
             for i in range(min_y[1], max_y[1] + 1):
                 for j in range(min_x[0], max_x[0] + 1):
+                    pbar.update(1)
                     if (j, i, z) in process:
                         f.writelines('%d\n' % process.index((j, i, z)))
                     else:
@@ -65,11 +70,6 @@ def gudhi_analysis(filename, final_barcode, time):
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
     plt.savefig('3d/'+str(int(time/1000))+'k/barcode_2_'+str(time)+'.png', dpi=1200)
-    # plt.show()
-
-    # gd.plot_persistence_barcode(eden_model.persistence(), legend=True)
-    # gd.plot_persistence_density(eden_model.persistence(), legend=True)
-    # a = 10
 
 def convert_perseus_2(process):
     dimension = 3
