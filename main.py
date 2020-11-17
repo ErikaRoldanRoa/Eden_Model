@@ -58,7 +58,7 @@ if file == 0:
             print("\nDrawing the complex...")
             draw_polyomino(Eden, Time)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
-    if dim == 3:
+    elif dim == 3:
         from e_3d import grow_eden, return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
             return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
@@ -99,7 +99,7 @@ if file == 0:
                     "\n\tcmds.move(Eden[i][0],Eden[i][1],Eden[i][2],aux)")
             f.close()
             print("We created txt file \"MAYA\" for you. Just copy paste its content to MAYA!")
-    if dim == 4:
+    elif dim == 4:
         from e_4d import grow_eden, draw_frequencies_3, return_frequencies_3, plot_b_per,\
             convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
@@ -120,6 +120,34 @@ if file == 0:
         print("\nCreating Gudhi file...")
         Filename = convert_gudhi(Process)
         print("\nDrawing Barcodes...")
+        gudhi_analysis(Filename, Final_barcode, Time)
+    elif dim == 5:
+        from e_5d import grow_eden, draw_frequencies_4, return_frequencies_4, plot_b_per,\
+            convert_gudhi, gudhi_analysis
+        from e_2d import draw_diagram_holes
+        Eden, Perimeter, Betti_4_total_vector, Barcode, Holes, Created_holes, Process, Perimeter_len, \
+            Final_barcode = grow_eden(Time)
+
+        f = open("5d/sample_time_list.txt", "w+")
+        Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
+        f.write(str(Process_file))
+        f.close()
+
+        if not os.path.exists('5d/'+str(int(Time/1000))+'k/'):
+            os.makedirs('5d/'+str(int(Time/1000))+'k/')
+        print("\nCalculating frequencies of betti_4...")
+        freq, changes = return_frequencies_4(Betti_4_total_vector, Time)
+        draw_frequencies_4(freq, Time, changes)
+        try:
+            draw_diagram_holes(Created_holes, Holes, Time, dim)
+        except IndexError:
+            print("Unable to draw \"Diagram of Holes\". The Complex is too small.")
+        plot_b_per(Betti_4_total_vector, Perimeter_len, Time, 0)
+
+        print("\nCreating Gudhi file...")
+        Filename = convert_gudhi(Process)
+        # Filename = '5d/gudhi_3000.txt'
+        print("\nComputing Persistence Homology with GUDHI...")
         gudhi_analysis(Filename, Final_barcode, Time)
 
 """FILE CASE"""
