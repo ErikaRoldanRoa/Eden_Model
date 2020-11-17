@@ -46,7 +46,7 @@ if file == 0:
             Created_holes, Process, Perimeter_len, Tags, Final_barcode = grow_eden(Time)
         if not os.path.exists('2d/'+str(int(Time/1000))+'k/'):
             os.makedirs('2d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_1...")
+        print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
         draw_frequencies_1(freq, Time, changes)
         Tromino, Tromino_f, Tetromino, Tetromino_f = num_holes(Created_holes, Holes)
@@ -74,10 +74,10 @@ if file == 0:
         if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
             os.makedirs('3d/'+str(int(Time/1000))+'k/')
 
-        print("\nCalculating frequencies of betti_1...")
+        print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
         draw_frequencies_1(freq, Time, changes)
-        print("\nCalculating frequencies of betti_2...")
+        print("\nCalculating frequencies of Betti_2...")
         freq, changes = return_frequencies_2(Betti_2_total_vector, Time)
         draw_frequencies_2(freq, Time, changes)
         Tricube, Tricube_f, Tetracube, Tetracube_f = num_holes(Created_holes, Holes)
@@ -111,10 +111,13 @@ if file == 0:
         # f.close()
         if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
             os.makedirs('4d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_3...")
+        print("\nCalculating frequencies of Betti_3...")
         freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
         draw_frequencies_3(freq, Time, changes)
-        draw_diagram_holes(Created_holes, Holes, Time, dim)
+        try:
+            draw_diagram_holes(Created_holes, Holes, Time, dim)
+        except IndexError:
+            print("Unable to draw \"Diagram of Holes\". The Complex is too small.")
         try:
             plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
         except RuntimeError:
@@ -138,7 +141,7 @@ if file == 0:
 
         if not os.path.exists('5d/'+str(int(Time/1000))+'k/'):
             os.makedirs('5d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_4...")
+        print("\nCalculating frequencies of Betti_4...")
         freq, changes = return_frequencies_4(Betti_4_total_vector, Time)
         draw_frequencies_4(freq, Time, changes)
         try:
@@ -168,7 +171,7 @@ if file == 1:
             Created_holes, Tags, Final_barcode, Perimeter_len = grow_eden_debugging(len(Eden), Eden)
         if not os.path.exists('2d/'+str(int(Time/1000))+'k/'):
             os.makedirs('2d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_1...")
+        print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
         draw_frequencies_1(freq, Time, changes)
         Tromino, Tromino_f, Tetromino, Tetromino_f = num_holes(Created_holes, Holes)
@@ -196,10 +199,10 @@ if file == 1:
             Final_barcode = grow_eden_debugging(len(Eden), Eden)
         if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
             os.makedirs('3d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_1...")
+        print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
         draw_frequencies_1(freq, Time, changes)
-        print("\nCalculating frequencies of betti_2...")
+        print("\nCalculating frequencies of Betti_2...")
         freq, changes = return_frequencies_2(Betti_2_total_vector, Time)
         draw_frequencies_2(freq, Time, changes)
         Tricube, Tricube_f, Tetracube, Tetracube_f = num_holes(Created_holes, Holes)
@@ -236,7 +239,7 @@ if file == 1:
             Betti_3_total_vector, Final_barcode = grow_eden_debugging(len(Eden), Eden)
         if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
             os.makedirs('4d/'+str(int(Time/1000))+'k/')
-        print("\nCalculating frequencies of betti_3...")
+        print("\nCalculating frequencies of Betti_3...")
         freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
         draw_frequencies_3(freq, Time, changes)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
