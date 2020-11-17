@@ -60,7 +60,7 @@ def gudhi_analysis(filename, final_barcode, time):
     print('What is the minimum length of the interval? Enter 3 numbers (b1, b2, b3) one by one. ')
     length = []
     for i in range(3):
-        print("Minimal length for Betti_",i+1, ':')
+        print("Minimal length for Betti_"+str(i+1)+':')
         while True:
             try:
                 x = int(input())
