@@ -53,6 +53,7 @@ def convert_gudhi(process):
                             f.writelines('%d\n' % process.index((j, i, z, w)))
                         else:
                             f.writelines('inf\n')
+    pbar.close()
     return filename
 
 def gudhi_analysis(filename, final_barcode, time):
@@ -216,13 +217,17 @@ def draw_frequencies_3(dict, time, changes):
     ax.plot(range(shift, l), dict[-1][shift:], color='tab:olive', label='-1',  linewidth=0.75)
     ax.plot(range(shift, l), dict[0][shift:], color='black', label='0',  linewidth=0.75)
     ax.plot(range(shift, l), dict[1][shift:], color='tab:red', label='+1',  linewidth=0.75)
-    ax.plot(range(shift, l), dict[2][shift:], color='tab:orange', label='+2',  linewidth=0.75)
-    ax.plot(range(shift, l), dict[3][shift:], color='tab:green', label='+3',  linewidth=0.75)
-    ax.plot(range(shift, l), dict[4][shift:], color='tab:blue', label='+4',  linewidth=0.75)
+    if next((i for i, x in enumerate(dict[2]) if x), 0) != 0:
+        ax.plot(range(shift, l), dict[2][shift:], color='tab:orange', label='+2',  linewidth=0.75)
+    if next((i for i, x in enumerate(dict[3]) if x), 0) != 0:
+        ax.plot(range(shift, l), dict[3][shift:], color='tab:green', label='+3',  linewidth=0.75)
+    if next((i for i, x in enumerate(dict[4]) if x), 0) != 0:
+        ax.plot(range(shift, l), dict[4][shift:], color='tab:blue', label='+4',  linewidth=0.75)
     # shift = next((i for i, x in enumerate(dict[3]) if x), 0)
     # ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3',  linewidth=0.75)
     # ax.plot(range(shift, l), dict[4][shift:], color='tab:brown', label='4',  linewidth=0.75)
-    plt.scatter(ch_5, y_5, s=5, marker='o', color="tab:brown", label='+5')
+    if next((i for i, x in enumerate(dict[5]) if x), 0) != 0:
+        plt.scatter(ch_5, y_5, s=5, marker='o', color="tab:brown", label='+5')
     # print(ch_5)
     # plt.scatter(ch_m_4, y_m_4, s = 10, marker='o', color="black", label='-4')
 
