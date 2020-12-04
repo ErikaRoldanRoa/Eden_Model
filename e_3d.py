@@ -49,7 +49,7 @@ def convert_gudhi(process):
     return filename
 
 def gudhi_analysis(filename, final_barcode, time):
-    print('What is the minimum length of the interval? Enter 3 numbers (b1, b2) one by one. ')
+    print('What is the minimum length of the interval? Enter 3 numbers one by one. ')
     length = []
     for i in range(2):
         print("Minimal length for Betti_"+str(i+1)+':')
@@ -103,8 +103,6 @@ def grow_eden(t):
     process = [(0, 0, 0)]
     perimeter_len = [6]
     eden, perimeter = start_eden()
-
-    l = len(perimeter)
 
     holes = {}
     total_holes = 0

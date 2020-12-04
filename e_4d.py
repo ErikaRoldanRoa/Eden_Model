@@ -57,7 +57,7 @@ def convert_gudhi(process):
     return filename
 
 def gudhi_analysis(filename, final_barcode, time):
-    print('What is the minimum length of the interval? Enter 3 numbers (b1, b2, b3) one by one. ')
+    print('What is the minimum length of the interval? Enter 3 numbers one by one. ')
     length = []
     for i in range(3):
         print("Minimal length for Betti_"+str(i+1)+':')

@@ -15,16 +15,16 @@ def read_value(arr):
 
 print('Welcome to EDEN Model!')
 
-print('Please, enter the desirable dimension of your model (from 2 to 5): ')
+print('Please, enter the desired dimension of your model (from 2 to 5): ')
 dim = read_value([2, 3, 4, 5])
-# dim = 4
+# dim = 2
 
-print('Do you have a file with a model? \n 1 -- you have a file \n 0 -- you want to generate a new model \n')
+print('Do you have a file with a model? \n0 -- you want to generate a new model \n1 -- you have a file')
 file = read_value([0, 1])
 # file = 1
 
 if dim <= 3:
-    print('Do you want a picture of your model? (with a large a model it can take time) \n 1 -- yes \n 0 -- no \n')
+    print('Do you want a picture of your model? (with a large model it can take time)  \n0 -- no \n1 -- yes')
     pic = read_value([0, 1])
     # pic = 0
 
@@ -52,12 +52,11 @@ if file == 0:
         Tromino, Tromino_f, Tetromino, Tetromino_f = num_holes(Created_holes, Holes)
         draw_tri_tetra(Tromino, Tromino_f, Tetromino, Tetromino_f, Time)
         plot_b_per(Betti_1_total_vector, Perimeter_len, Time)
-
+        draw_diagram_holes(Created_holes, Holes, Time, dim)
         # draw_barcode(Barcode, Time)
         if pic == 1:
             print("\nDrawing the complex...")
             draw_polyomino(Eden, Time)
-        draw_diagram_holes(Created_holes, Holes, Time, dim)
     elif dim == 3:
         from e_3d import grow_eden, return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
             return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
@@ -159,10 +158,8 @@ if file == 0:
 """FILE CASE"""
 if file == 1:
     if dim == 2:
-        from e_2d import grow_eden_debugging, plot_b_per, draw_diagram_holes, num_holes, draw_tri_tetra, draw_barcode, draw_polyomino, \
-            read_eden_txt, return_frequencies_1, draw_frequencies_1
-
-        Eden_f = read_eden_txt("2d/sample_time_list.txt")
+        from e_2d import grow_eden_debugging, plot_b_per, draw_diagram_holes, num_holes, draw_tri_tetra, draw_barcode, draw_polyomino,\
+            return_frequencies_1, draw_frequencies_1
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
@@ -184,8 +181,7 @@ if file == 1:
             draw_polyomino(Eden, Time)
     if dim == 3:
         from e_3d import return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
-            return_frequencies_2, draw_frequencies_2, grow_eden_debugging, read_eden_txt,\
-            convert_gudhi, gudhi_analysis
+            return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
         Eden_f = read_eden_txt("3d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
@@ -225,7 +221,7 @@ if file == 1:
             f.close()
             print("We created txt file \"MAYA\" for you. Just copy paste its content to MAYA!")
     if dim == 4:
-        from e_4d import grow_eden_debugging, draw_frequencies_3, return_frequencies_3, plot_b_per, read_eden_txt,\
+        from e_4d import grow_eden_debugging, draw_frequencies_3, return_frequencies_3, plot_b_per,\
             convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
         Eden_f = read_eden_txt("4d/sample_time_list.txt")

@@ -250,11 +250,11 @@ def read_eden_txt(filename):
     eden = []
     for t in open(filename).read().split('), ('):
         # print(t)
-        a, b, c = t.strip('()[]').split(',')
-        a = a.strip()
-        b = b.strip(')')
-        c = c.strip(")]\n")
-        eden.append(((int(a), int(b)), float(c)))
+        split = t.strip('()[]').split(',')
+        split[-2] = split[-2].strip(')')
+        # split[-1] = split[-1].strip(")]\n")
+        tup = tuple([int(x) for x in split[:-1]])
+        eden.append((tup, float(split[-1])))
     return eden
 
 def hamming2(s1, s2):
