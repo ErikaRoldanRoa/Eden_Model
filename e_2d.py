@@ -257,6 +257,17 @@ def read_eden_txt(filename):
         eden.append((tup, float(split[-1])))
     return eden
 
+def read_eden_perseus(filename):
+    eden = []
+    file = open(filename, 'r')
+    lines = file.readlines()
+    # dim = int(lines[0])
+    for line in lines[1:]:
+        split = line.strip('\n').split(' ')
+        tup = tuple([int(x) for x in split[:-1]])
+        eden.append((tup, float(split[-1])))
+    return eden
+
 def hamming2(s1, s2):
     """Calculate the Hamming distance between two bit strings"""
     assert len(s1) == len(s2)

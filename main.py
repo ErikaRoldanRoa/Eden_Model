@@ -1,5 +1,6 @@
 import os
 import numpy as np
+from pathlib import Path
 
 
 def read_value(arr):
@@ -157,6 +158,21 @@ if file == 0:
 
 """FILE CASE"""
 if file == 1:
+    print('What is the format of the file? \n0 -- list of tuples \n1 -- Perseus')
+    file_format = read_value([0, 1])
+    # file_format = 1
+    print('Name of the file (for example, filename.txt):')
+    filename = str(input())
+    while not Path(str(dim)+"d/files/"+filename).exists():
+        print("Oops!  That was no valid name.  Try again...")
+        filename = str(input())
+    # filename = '1000000_1_2D_final.txt'
+    # filename = 'sample_time_list.txt'
+    from e_2d import read_eden_perseus, read_eden_txt
+    if file_format == 1:
+        Eden_f = read_eden_perseus(str(dim)+"d/files/"+filename)
+    else:
+        Eden_f = read_eden_txt(str(dim)+"d/files/"+filename)
     if dim == 2:
         from e_2d import grow_eden_debugging, plot_b_per, draw_diagram_holes, num_holes, draw_tri_tetra, draw_barcode, draw_polyomino,\
             return_frequencies_1, draw_frequencies_1
@@ -183,7 +199,7 @@ if file == 1:
         from e_3d import return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
             return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
-        Eden_f = read_eden_txt("3d/sample_time_list.txt")
+        # Eden_f = read_eden_txt("3d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
@@ -224,7 +240,7 @@ if file == 1:
         from e_4d import grow_eden_debugging, draw_frequencies_3, return_frequencies_3, plot_b_per,\
             convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
-        Eden_f = read_eden_txt("4d/sample_time_list.txt")
+        # Eden_f = read_eden_txt("4d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
