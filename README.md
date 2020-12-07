@@ -1,12 +1,6 @@
-
-
-DEVELOPERS:
 DATE: November 21, 2020
 
 LICENSE:
-
-OVERVIEW:
-This software provides 
 
 # Eden_Model
 This software provides methods to build and analyze 2d, 3d, 4d, and 5d Eden Models. The software is able to read a pre-defined model from a txt file, as well as create a model based on the number of tiles, specified by the user. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model. 
