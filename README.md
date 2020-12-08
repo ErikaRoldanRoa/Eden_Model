@@ -1,6 +1,6 @@
 # Topology and local geometry of the Eden Cell Growth Model
 
-DEVELOPERS: 
+DEVELOPERS: <br />
 Fedor Manin (manin@math.ucsb.edu) <br />
 Anna Krymova (anna.krymova@tum.de) <br />
 Erika Roldan (erika.roldan@ma.tum.de) <br />
