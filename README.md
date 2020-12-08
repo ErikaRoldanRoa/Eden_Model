@@ -21,7 +21,7 @@ The software builds:
 * the plot of the growth rates of Betti numbers and the perimeter,
 * for 2d and 3d model, the plots of the frequency of the number of top dimensional holes for specific shapes with 3 and 4 cells
 
-The folder contains the data of the 2D simulations that were used in the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL
+The folder ** contains the data of the 2D simulations that were used in the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL.
 
 All the plots and graphs are saved in the folder of the project.
 
@@ -34,10 +34,7 @@ Marie Skłodowska-Curie grant agreement No. 754462.
 
 # Citations 
 
-CITATIONS:
-
 If you use this code, cite the paper. If you use the computations of persistent homology cite the GUDHI package.
-
 
 
 DEPENDENCIES:
