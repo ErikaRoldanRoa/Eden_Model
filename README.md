@@ -87,8 +87,8 @@ Please, enter the desired dimension of your model (from 2 to 5):
 Then, you have to specify if you have a file with a pre-defined model or not:
 ```
 Do you have a file with a model? 
- 1 -- you have a file 
- 0 -- you want to generate a new model
+0 -- you want to generate a new model 
+1 -- you have a file
 ```
 In the case of а 2d or а 3d model, on the next step you decide if you want a picture:
 ```
@@ -96,7 +96,17 @@ Do you want a picture of your model? (with a large model it can take time)
  1 -- yes 
  0 -- no
 ```
-If in the previous step you chose to generate a new model, then now the system asks you to enter the size of the model:
+In case you want to read the cubical complex from a file, the program asks you to specify the file format:
+```
+What is the format of the file? 
+0 -- list of tuples 
+1 -- Perseus
+```
+And then you should give a name of a file:
+```
+Name of the file (for example, filename.txt):
+```
+If you chose to generate a new model, then now the system asks you to enter the size of the model:
 ```
 How many tiles would you like in your model?
 ```
