@@ -13,9 +13,9 @@ DATE: December 15, 2020
 LICENSE: GNU GENERAL PUBLIC LICENSE (see license.txt)
 
 # Overview 
-This library allow you to run simulations of the Eden Growth Model for dimensions 2-5 and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a txt file with the time at which tiles should be added. This allows to analize simulations comming from other stochastic models comming from First Passage Percolation. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model.
+This software allows you to run simulations of the Eden Growth Model for dimensions 2-5 and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a txt file with the time at which tiles should be added. This allows analysis of simulations from other stochastic models from First Passage Percolation. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model.
 
-For computing homology and persistent homology in 3D, 4D and 5D we use the library GUDHI, make sure to cite this library if you are using homology or persistent homology in this dimensions.
+For computing homology and persistent homology in 3D, 4D and 5D we use the library GUDHI, make sure to cite this library if you are using homology or persistent homology in these dimensions.
 
 The software builds:
 * the plot of the frequencies of Betti numbers, 
@@ -28,8 +28,8 @@ The folder ** contains the data of the 2D simulations that were used in the pape
 All the plots and graphs are saved in the folder of the project.
 
 # Acknowledgments
-Fedor Manin supported in part by NSF DMS-2001042.
-Erika Roldan was supported in part by NSF-DMS #1352386 and NSF-DMS #1812028 during 2018-2019. 
+Fedor Manin supported in part by NSF DMS-2001042. <br />
+Erika Roldan was supported in part by NSF-DMS #1352386 and NSF-DMS #1812028 during 2018-2019. <br />
 This project received funding from the European Union’s Horizon 2020 research and innovation program under the
 Marie Skłodowska-Curie grant agreement No. 754462.
 
@@ -45,7 +45,7 @@ Python 3.8.
 
 GUDHI. http://gudhi.gforge.inria.fr/
 
-## Getting Started
+# Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. 
 
@@ -70,7 +70,7 @@ conda install -c conda-forge/label/cf201901 gudhi
 conda install -c conda-forge/label/cf202003 gudhi
 ```
 
-## Running the tests
+# Running the tests
 
 At first, the system will ask you to enter the dimension:
 ```
