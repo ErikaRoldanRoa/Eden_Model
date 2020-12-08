@@ -27,7 +27,7 @@ The folder ** contains the data of the 2D simulations that were used in the pape
 
 All the plots and graphs are saved in the folder of the project.
 
-# Acknoledgments
+# Acknowledgments
 Fedor Manin supported in part by NSF DMS-2001042.
 Erika Roldan was supported in part by NSF-DMS #1352386 and NSF-DMS #1812028 during 2018-2019. 
 This project received funding from the European Union’s Horizon 2020 research and innovation program under the
