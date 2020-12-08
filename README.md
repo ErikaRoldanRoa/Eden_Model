@@ -1,6 +1,12 @@
-DATE: November 21, 2020
+Homology, Persistent Homology, and local geometry of the Eden Model
 
-LICENSE:
+DEVELOPERS: 
+Fedor Manin (manin@math.ucsb.edu)
+Anna Krymova (anna.krymova@tum.de)
+Erika Roldan (erika.roldan@ma.tum.de)
+Benjamin Schweinhart (bschweinhart@albany.edu)
+DATE: December 15, 2020
+LICENSE: MPL 1.1/GPL 2.0/LGPL 2.1 (see license.txt)
 
 # Eden_Model
 This software provides methods to build and analyze 2d, 3d, 4d, and 5d Eden Models. The software is able to read a pre-defined model from a txt file, as well as create a model based on the number of tiles, specified by the user. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model. 
