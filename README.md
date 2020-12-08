@@ -92,9 +92,9 @@ Do you have a file with a model?
 ```
 In the case of а 2d or а 3d model, on the next step you decide if you want a picture:
 ```
-Do you want a picture of your model? (with a large model it can take time) 
- 1 -- yes 
- 0 -- no
+Do you want a picture of your model? (with a large model it can take time)  
+0 -- no 
+1 -- yes
 ```
 In case you want to read the cubical complex from a file, the program asks you to specify the file format:
 ```
