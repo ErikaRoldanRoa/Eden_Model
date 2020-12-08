@@ -38,12 +38,15 @@ Marie Skłodowska-Curie grant agreement No. 754462.
 
 If you use this code, cite the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL. If you use the computations of homology and persistent homology for 3D-5D cite the GUDHI package.
 
-@article{manin2020topology, <br />
-   title={Topology and local geometry of the Eden model}, <br />
-   author={Manin, Fedor and Roldan, Erika and Schweinhart, Benjamin}, <br />
-   journal={arXiv preprint arXiv:2005.12349}, <br />
-   year={2020}<br />
+```
+@article{manin2020topology,
+   title={Topology and local geometry of the Eden model},
+   author={Manin, Fedor and Roldan, Erika and Schweinhart, Benjamin},
+   journal={arXiv preprint arXiv:2005.12349},
+   year={2020}
 }
+
+```
 
 # Dependencies:
 
