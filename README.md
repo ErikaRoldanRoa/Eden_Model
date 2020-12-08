@@ -45,7 +45,6 @@ If you use this code, cite the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MOD
    journal={arXiv preprint arXiv:2005.12349},
    year={2020}
 }
-
 ```
 
 # Dependencies:
