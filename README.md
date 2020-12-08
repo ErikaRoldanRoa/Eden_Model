@@ -27,14 +27,14 @@ The folder *2d/files* contains the data of the 2D simulations that were used in 
 
 All the plots and graphs are saved in the folder of the project.
 
-# Acknowledgments
+## Acknowledgments
 Fedor Manin supported in part by NSF DMS-2001042. <br />
 Erika Roldan was supported in part by NSF-DMS #1352386 and NSF-DMS #1812028 during 2018-2019. <br />
 This project received funding from the European Union’s Horizon 2020 research and innovation program under the
 Marie Skłodowska-Curie grant agreement No. 754462.
 
 
-# Citations 
+## Citations 
 
 If you use this code, cite the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL. If you use the computations of homology and persistent homology for 3D-5D, cite the GUDHI package.
 
