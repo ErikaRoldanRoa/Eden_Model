@@ -39,7 +39,7 @@ Marie Skłodowska-Curie grant agreement No. 754462.
 If you use this code, cite the paper. If you use the computations of persistent homology cite the GUDHI package.
 
 
-DEPENDENCIES:
+# Dependencies:
 
 Python 3.8.
 
