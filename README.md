@@ -13,7 +13,7 @@ DATE: December 15, 2020
 LICENSE: GNU GENERAL PUBLIC LICENSE (see license.txt)
 
 ## Overview 
-This software allows you to run simulations of the Eden Growth Model for dimensions 2-5 and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a txt file with the time at which tiles should be added. This allows analysis of simulations from other stochastic models from First Passage Percolation. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model.
+This software allows you to run simulations of the Eden Growth Model for dimensions 2-5 and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a txt file with the time at which tiles should be added. This allows analysis of simulations from other stochastic models from First Passage Percolation. Note: the cells in a txt file should be in chronological order. For the 2-dimensional model, the program can create a picture of it. For the 3-dimensional model, a txt file is created: the user has to copy-paste its content to MAYA to get the 3-dimensional model of the Eden Model.
 
 For computing homology and persistent homology in 3D, 4D and 5D we use the library GUDHI, make sure to cite this library if you are using homology or persistent homology in these dimensions.
 
@@ -79,7 +79,7 @@ conda install -c conda-forge/label/cf202003 gudhi
 ```
 
 ## Running the tests
-
+Download the whole folder and run the file *main.py*.<br />
 At first, the system will ask you to enter the dimension:
 ```
 Please, enter the desired dimension of your model (from 2 to 5): 
