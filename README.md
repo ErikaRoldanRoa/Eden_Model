@@ -1,4 +1,4 @@
-Topology and local geometry of the Eden Cell Growth Model
+# Topology and local geometry of the Eden Cell Growth Model
 
 DEVELOPERS: 
 Fedor Manin (manin@math.ucsb.edu)
