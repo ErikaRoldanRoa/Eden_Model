@@ -36,7 +36,7 @@ Marie Skłodowska-Curie grant agreement No. 754462.
 
 # Citations 
 
-If you use this code, cite the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL. If you use the computations of homology and persistent homology for 3D-5D cite the GUDHI package.
+If you use this code, cite the paper TOPOLOGY AND LOCAL GEOMETRY OF THE EDEN MODEL. If you use the computations of homology and persistent homology for 3D-5D, cite the GUDHI package.
 
 ```
 @article{manin2020topology,
