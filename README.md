@@ -1,10 +1,10 @@
 # Topology and local geometry of the Eden Cell Growth Model
 
 DEVELOPERS: 
-Fedor Manin (manin@math.ucsb.edu)
-Anna Krymova (anna.krymova@tum.de)
-Erika Roldan (erika.roldan@ma.tum.de)
-Benjamin Schweinhart (bschweinhart@albany.edu)
+Fedor Manin (manin@math.ucsb.edu) <br />
+Anna Krymova (anna.krymova@tum.de) <br />
+Erika Roldan (erika.roldan@ma.tum.de) <br />
+Benjamin Schweinhart (bschweinhart@albany.edu) <br />
 
 
 
