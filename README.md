@@ -102,9 +102,5 @@ WE ARE DONE! CHECK THE FOLDER!
 ```
 And now you are welcome to check the results in the corresponding folder. 
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
 
