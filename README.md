@@ -1,13 +1,9 @@
 Homology, Persistent Homology, and local geometry of the Eden Model
 
 DEVELOPERS: 
-
 Fedor Manin (manin@math.ucsb.edu)
-
 Anna Krymova (anna.krymova@tum.de)
-
 Erika Roldan (erika.roldan@ma.tum.de)
-
 Benjamin Schweinhart (bschweinhart@albany.edu)
 
 DATE: December 15, 2020
