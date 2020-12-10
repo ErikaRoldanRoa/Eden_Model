@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 import collections
 from scipy.optimize import curve_fit
 import matplotlib.patches as mpatches
+import gudhi as gd
 
 
 """
@@ -138,6 +139,57 @@ def grow_eden_debugging(t, ordered_tiles):
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_1_vector, betti_1_total_vector, barcode, holes, betti_1_total, betti_1_euler_total, created_holes, tags, final_barcode, len_perimeter
+
+"""GUDHI"""
+def convert_gudhi(process, folder_name):
+    min_x = min(process, key=lambda x: x[0])
+    max_x = max(process, key=lambda x: x[0])
+    min_y = min(process, key=lambda x: x[1])
+    max_y = max(process, key=lambda x: x[1])
+
+    dimension = 2
+
+    long = max_x[0] + ((-1) * (min_x[0])) + 1
+    wide = max_y[1] + ((-1) * (min_y[1])) + 1
+
+    time = len(process)
+    filename = folder_name+'/gudhi_'+str(time)+'.txt'
+
+    total = long*wide
+    pbar = tqdm(total=total)
+
+    with open(filename, 'w+') as f:
+        f.writelines('%d\n' % dimension)
+        f.writelines('%d\n' % long)
+        f.writelines('%d\n' % wide)
+
+        for i in range(min_y[1], max_y[1] + 1):
+            for j in range(min_x[0], max_x[0] + 1):
+                pbar.update(1)
+                if (j, i) in process:
+                    f.writelines('%d\n' % process.index((j, i)))
+                else:
+                    f.writelines('inf\n')
+    pbar.close()
+    return filename
+
+def gudhi_analysis(filename, final_barcode, folder_name, length):
+    print("Creating Cubical Complex...")
+    eden_model = gd.CubicalComplex(perseus_file=filename)
+    eden_model.persistence()
+    A = eden_model.persistence_intervals_in_dimension(1)
+    B = [elem for elem in A if elem[1] == float('inf')]
+    final = np.array(final_barcode)
+    A_sorted = A.sort()
+    final_sorted = final.sort()
+    if A_sorted == final_sorted:
+        print("Gudhi Barcode agrees with our Barcode!")
+    pers_1 = [x for x in eden_model.persistence(min_persistence=length[0]) if x[0] == 1]
+    fig, ax = plt.subplots()
+    gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
+    ax.set_title(r'Persistence Barcode $\beta_1$')
+    plt.savefig(folder_name+'/barcode_1.png', dpi=1200)
+    plt.close()
 
 """DRAWING"""
 def draw_square(x, y, col='gray', ls=0.35):
