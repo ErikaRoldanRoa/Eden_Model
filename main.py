@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from pathlib import Path
+from datetime import datetime
 
 
 def read_value(arr):
@@ -38,26 +39,34 @@ if file == 0:
             break
         except ValueError:
             print("Oops!  That was no valid number.  Try again...")
-    # Time = 10000
+
+    now = datetime.now()
+    dt_string = now.strftime("%d:%m:%Y_%H.%M.%S")
+    if Time > 1000:
+        t = int(Time/1000)
+    else:
+        t = Time
+    folder_name = str(dim)+'d/'+str(t)+'k_'+dt_string
+    os.makedirs(folder_name)
+
     if dim == 2:
         from e_2d import grow_eden, plot_b_per, draw_diagram_holes, num_holes, draw_tri_tetra, draw_barcode, \
             draw_polyomino, return_frequencies_1, draw_frequencies_1
         print("\nBuilding a model...")
         Eden, Perimeter, Betti_1_total_vector, Betti_1_vector_changes, Barcode, Holes, Betti_1_total, \
             Created_holes, Process, Perimeter_len, Tags, Final_barcode = grow_eden(Time)
-        if not os.path.exists('2d/'+str(int(Time/1000))+'k/'):
-            os.makedirs('2d/'+str(int(Time/1000))+'k/')
+
         print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
-        draw_frequencies_1(freq, Time, changes)
+        draw_frequencies_1(freq, changes, folder_name)
         Tromino, Tromino_f, Tetromino, Tetromino_f = num_holes(Created_holes, Holes)
-        draw_tri_tetra(Tromino, Tromino_f, Tetromino, Tetromino_f, Time)
-        plot_b_per(Betti_1_total_vector, Perimeter_len, Time)
-        draw_diagram_holes(Created_holes, Holes, Time, dim)
+        draw_tri_tetra(Tromino, Tromino_f, Tetromino, Tetromino_f, folder_name)
+        plot_b_per(Betti_1_total_vector, Perimeter_len, Time, folder_name)
+        draw_diagram_holes(Created_holes, Holes, folder_name, dim)
         # draw_barcode(Barcode, Time)
         if pic == 1:
             print("\nDrawing the complex...")
-            draw_polyomino(Eden, Time)
+            draw_polyomino(Eden, Time, folder_name)
     elif dim == 3:
         from e_3d import grow_eden, return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
             return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
@@ -70,20 +79,18 @@ if file == 0:
         # Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
         # f.write(str(Process_file))
         # f.close()
-
-        if not os.path.exists('3d/'+str(int(Time/1000))+'k/'):
-            os.makedirs('3d/'+str(int(Time/1000))+'k/')
+        # print("File is written!")
 
         print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
-        draw_frequencies_1(freq, Time, changes)
+        draw_frequencies_1(freq, changes, folder_name)
         print("\nCalculating frequencies of Betti_2...")
         freq, changes = return_frequencies_2(Betti_2_total_vector, Time)
-        draw_frequencies_2(freq, Time, changes)
+        draw_frequencies_2(freq, changes, folder_name)
         Tricube, Tricube_f, Tetracube, Tetracube_f = num_holes(Created_holes, Holes)
-        draw_tri_tetra(Tricube, Tricube_f, Tetracube, Tetracube_f, Time)
-        plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0)
-        draw_diagram_holes(Created_holes, Holes, Time, dim)
+        draw_tri_tetra(Tricube, Tricube_f, Tetracube, Tetracube_f, folder_name)
+        plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0, folder_name)
+        draw_diagram_holes(Created_holes, Holes, folder_name)
 
         print("\nCreating Gudhi file...")
         Filename = convert_gudhi(Process)
@@ -92,7 +99,7 @@ if file == 0:
 
         if pic == 1:
             a = 1
-            f = open("3d/"+str(int(Time/1000))+"k/MAYA.txt", "w+")
+            f = open(folder_name+"/MAYA.txt", "w+")
             f.write("import maya.cmds as cmds \nimport math as m \n"
                     "import os,sys \nEden = " + str(Process)+"\nt = len(Eden)"
                     "\nfor i in range(0,t):\n\taux = cmds.polyCube()"
@@ -113,20 +120,21 @@ if file == 0:
             os.makedirs('4d/'+str(int(Time/1000))+'k/')
         print("\nCalculating frequencies of Betti_3...")
         freq, changes = return_frequencies_3(Betti_3_total_vector, Time)
-        draw_frequencies_3(freq, Time, changes)
+        draw_frequencies_3(freq, changes, folder_name)
         try:
-            draw_diagram_holes(Created_holes, Holes, Time, dim)
+            draw_diagram_holes(Created_holes, Holes, folder_name)
         except IndexError:
             print("Unable to draw \"Diagram of Holes\". The Complex is too small.")
         try:
-            plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
+            plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0, folder_name)
         except RuntimeError:
             print("Unable to draw \"Betti vs Perimeter\". The Complex is too small.")
 
         print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process)
+        Filename = convert_gudhi(Process, folder_name)
+        # Filename = '4d/gudhi_10000.txt'
         print("\nDrawing Barcodes...")
-        gudhi_analysis(Filename, Final_barcode, Time)
+        gudhi_analysis(Filename, Final_barcode, folder_name, length)
     elif dim == 5:
         from e_5d import grow_eden, draw_frequencies_4, return_frequencies_4, plot_b_per,\
             convert_gudhi, gudhi_analysis
@@ -139,22 +147,20 @@ if file == 0:
         f.write(str(Process_file))
         f.close()
 
-        if not os.path.exists('5d/'+str(int(Time/1000))+'k/'):
-            os.makedirs('5d/'+str(int(Time/1000))+'k/')
         print("\nCalculating frequencies of Betti_4...")
         freq, changes = return_frequencies_4(Betti_4_total_vector, Time)
         draw_frequencies_4(freq, Time, changes)
         try:
-            draw_diagram_holes(Created_holes, Holes, Time, dim)
+            draw_diagram_holes(Created_holes, Holes, folder_name)
         except IndexError:
             print("Unable to draw \"Diagram of Holes\". The Complex is too small.")
-        plot_b_per(Betti_4_total_vector, Perimeter_len, Time, 0)
+        plot_b_per(Betti_4_total_vector, Perimeter_len, Time, 0, folder_name)
 
         print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process)
+        Filename = convert_gudhi(Process, folder_name)
         # Filename = '5d/gudhi_3000.txt'
         print("\nComputing Persistence Homology with GUDHI...")
-        gudhi_analysis(Filename, Final_barcode, Time)
+        gudhi_analysis(Filename, Final_barcode, folder_name, length)
 
 """FILE CASE"""
 if file == 1:

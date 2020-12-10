@@ -15,7 +15,7 @@ import matplotlib.patches as mpatches
 from scipy.optimize import curve_fit
 
 """GUDHI"""
-def convert_gudhi(process):
+def convert_gudhi(process, folder_name):
     min_x = min(process, key=lambda x: x[0])
     max_x = max(process, key=lambda x: x[0])
     min_y = min(process, key=lambda x: x[1])
@@ -27,7 +27,7 @@ def convert_gudhi(process):
     wide = max_y[1] + ((-1) * (min_y[1])) + 1
     deep = max_z[2] + ((-1) * (min_z[2])) + 1
     time = len(process)
-    filename = '3d/gudhi_'+str(time)+'.txt'
+    filename = folder_name+'/gudhi_'+str(time)+'.txt'
 
     total = long*wide*deep
     pbar = tqdm(total=total)
@@ -76,13 +76,13 @@ def gudhi_analysis(filename, final_barcode, time):
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_1$')
-    plt.savefig('3d/'+str(int(time/1000))+'k/barcode_1_'+str(time)+'.png', dpi=1200)
+    plt.savefig(folder_name+'/barcode_1.png', dpi=1200)
 
     pers_2 = [x for x in eden_model.persistence(min_persistence=length[1]) if x[0] == 2]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
-    plt.savefig('3d/'+str(int(time/1000))+'k/barcode_2_'+str(time)+'.png', dpi=1200)
+    plt.savefig(folder_name+'/barcode_2.png', dpi=1200)
 
 def convert_perseus_2(process):
     dimension = 3
@@ -220,7 +220,7 @@ def grow_eden_debugging(t, ordered_tiles):
            created_holes, perimeter_len, final_barcode  # , tags, final_barcode
 
 """PLOTTING"""
-def draw_frequencies_1(dict, time, changes):
+def draw_frequencies_1(dict, changes, folder_name):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     l = len(dict[0])
@@ -255,11 +255,11 @@ def draw_frequencies_1(dict, time, changes):
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     # ax.ticklabel_format(useOffset=False)
     ax.legend(loc=1, prop={'size': 6})
-    fig.savefig('3d/'+str(int(time/1000))+'k/fr_b_1_'+str(time)+'.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/fr_b_1.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
-def draw_frequencies_2(dict, time, changes):
+def draw_frequencies_2(dict, changes, folder_name):
     # fig = plt.figure()
     fig, ax = plt.subplots()
     l = len(dict[0])
@@ -290,11 +290,11 @@ def draw_frequencies_2(dict, time, changes):
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     # ax.ticklabel_format(useOffset=False)
     plt.legend(loc=1, prop={'size': 6})
-    fig.savefig('3d/'+str(int(time/1000))+'k/fr_b_2_'+str(time)+'.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/fr_b_2.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
-def draw_tri_tetra(tri, tri_f, tetra, tetra_f, time):
+def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
     width = 0.35
     labels = list(tri)+list(tetra)
     x = np.arange(len(labels))
@@ -360,11 +360,11 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, time):
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Type of a Hole')
     fig.tight_layout()
-    fig.savefig('3d/'+str(int(time/1000))+'k/tri-tetra-cubes.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/tri-tetra-cubes.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
-def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N):
+def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_name):
     n = int(time/10)
 
     def func(x, a, b):
@@ -401,7 +401,7 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N):
     plt.legend(prop={'size': 6}, loc = 2)
     plt.tight_layout()
 
-    plt.savefig('3d/'+str(int(time/1000))+'k/per-b-time_'+str(time)+'.png', dpi=1200)
+    plt.savefig(folder_name+'/per-b-time.png', dpi=1200)
     # plt.show()
     plt.close()
 

@@ -146,7 +146,7 @@ def draw_square(x, y, col='gray', ls=0.35):
     """ls is a half of square side"""
     plt.fill([x - ls, x + ls, x + ls, x - ls], [y - ls, y - ls, y + ls, y + ls], color=col)
 
-def draw_polyomino(eden, time):
+def draw_polyomino(eden, time, folder_name):
     """This function draws a square for each (x, y) if the respective IO entry is 1 and does nothing if it is 0"""
     """As I got entries of eden are (x, y): [a, b, c] and if a == 1 than we draw the square with the center (x, y)
     b probably corresponds to the number how many times we could've add this square to the eden"""
@@ -162,7 +162,7 @@ def draw_polyomino(eden, time):
             pbar.update(1)
             draw_square(x[0], x[1], 'gray')
     draw_square(0, 0, 'green')
-    plt.savefig('2d/'+str(int(time/1000))+'k/eden_' + str(time) + '.svg', format='svg', dpi=1200)
+    plt.savefig(folder_name+'/eden.svg', format='svg', dpi=1200)
     # plt.show()
     plt.close()
 
@@ -201,7 +201,7 @@ def draw_barcode(barcode, time):
     fig.savefig('2d/'+str(int(time/1000))+'k/barcode_'+str(time)+'.svg', format='svg', dpi=1200)
     plt.show()
 
-def draw_frequencies_1(dict, time, changes):
+def draw_frequencies_1(dict, changes, folder_name):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     l = len(dict[0])
@@ -228,7 +228,7 @@ def draw_frequencies_1(dict, time, changes):
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     # ax.ticklabel_format(useOffset=False)
     ax.legend(loc=1, prop={'size': 6})
-    fig.savefig('2d/'+str(int(time/1000))+'k/fr_b_1_'+str(time)+'.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/fr_b_1_.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
@@ -593,7 +593,7 @@ def distances(hole):
 
 """PLOTTING"""
 
-def draw_diagram_holes(created_holes, holes, time, dim):
+def draw_diagram_holes(created_holes, holes, folder_name):
     fr_cr = [created_holes[i][-1] for i in range(len(created_holes))]
     fr_cr.sort()
     fr_final = [len(holes[i]) for i in holes]
@@ -638,11 +638,11 @@ def draw_diagram_holes(created_holes, holes, time, dim):
 
     ax.legend()
     fig.tight_layout()
-    fig.savefig(str(dim)+'d/'+str(int(time/1000))+'k/holes.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/holes.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
-def plot_b_per(b1, p2, time, times=None, N=0):
+def plot_b_per(b1, p2, time, folder_name, times=None):
     n = int(time/10)
     if times is None:
         times = np.arange(1, time+1)
@@ -671,11 +671,11 @@ def plot_b_per(b1, p2, time, times=None, N=0):
     plt.ylabel('data')
     plt.legend(prop={'size': 6})
     plt.tight_layout()
-    plt.savefig('2d/'+str(int(time/1000))+'k/per-b-time_'+str(time)+'.png', dpi=1200)
+    plt.savefig(folder_name+'/per-b-time_'+str(time)+'.png', dpi=1200)
     # plt.show()
     plt.close()
 
-def draw_tri_tetra(tri, tri_f, tetra, tetra_f, time):
+def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
     width = 0.35
     labels = list(tri)+list(tetra)
     x = np.arange(len(labels))
@@ -741,7 +741,7 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, time):
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Type of a Hole')
     fig.tight_layout()
-    fig.savefig('2d/'+str(int(time/1000))+'k/tro-tetro-minoes.png', format='png', dpi=1200)
+    fig.savefig(folder_name+'/tro-tetro-minoes.png', format='png', dpi=1200)
     # plt.show()
     plt.close()
 
