@@ -48,23 +48,10 @@ def convert_gudhi(process, folder_name):
     pbar.close()
     return filename
 
-def gudhi_analysis(filename, final_barcode, time):
-    print('What is the minimum length of the interval? Enter 3 numbers one by one. ')
-    length = []
-    for i in range(2):
-        print("Minimal length for Betti_"+str(i+1)+':')
-        while True:
-            try:
-                x = int(input())
-                length.append(x)
-                break
-            except ValueError:
-                print("Oops!  That was no valid number.  Try again...")
+def gudhi_analysis(filename, final_barcode, folder_name, length):
     print("\nCreating Cubical Complex...")
     eden_model = gd.CubicalComplex(perseus_file=filename)
     eden_model.persistence()
-    # A = eden_model.persistence_intervals_in_dimension(1)
-    # B = [elem for elem in A if elem[1] == float('inf')]
     A = eden_model.persistence_intervals_in_dimension(2)
     B = [elem for elem in A if elem[1] == float('inf')]
     final = np.array(final_barcode)
@@ -121,8 +108,6 @@ def grow_eden(t):
 
     pbar = tqdm(total=t)
     pbar.update(1)
-    # for i in tqdm(range(1, t)):
-    # for i in (range(1, t)):
     while size < t:
         l = len(perimeter)
         x = random.randint(0, l - 1)
@@ -167,8 +152,6 @@ def grow_eden_debugging(t, ordered_tiles):
     vertices = 8
     edges = 12
     faces = 6
-    #
-    # process = [(0, 0, 0)]
 
     eden, perimeter = start_eden()
 
@@ -217,7 +200,7 @@ def grow_eden_debugging(t, ordered_tiles):
     final_barcode = barcode_forest(barcode, tags)
 
     return eden, perimeter, betti_2_total_vector, betti_1_total_vector, barcode, holes, betti_2_total, betti_1_total, \
-           created_holes, perimeter_len, final_barcode  # , tags, final_barcode
+           created_holes, perimeter_len, final_barcode
 
 """PLOTTING"""
 def draw_frequencies_1(dict, changes, folder_name):
@@ -244,23 +227,17 @@ def draw_frequencies_1(dict, changes, folder_name):
     ax.plot(range(shift, l), dict[2][shift:], color='tab:blue', label='+2',  linewidth=0.75)
     shift = next((i for i, x in enumerate(dict[3]) if x), 0)
     ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3',  linewidth=0.75)
-    # ax.plot(range(shift, l), dict[4][shift:], color='tab:brown', label='4',  linewidth=0.75)
     plt.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
-    # plt.scatter(ch_m_4, y_m_4, s = 10, marker='o', color="black", label='-4')
 
     plt.yscale('log')
-    # ax.set_title('betti_1 frequencies')
     ax.set_ylabel(r'Frequency of Change in $\beta_1$')
     ax.set_xlabel('t')
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    # ax.ticklabel_format(useOffset=False)
     ax.legend(loc=1, prop={'size': 6})
     fig.savefig(folder_name+'/fr_b_1.png', format='png', dpi=1200)
-    # plt.show()
     plt.close()
 
 def draw_frequencies_2(dict, changes, folder_name):
-    # fig = plt.figure()
     fig, ax = plt.subplots()
     l = len(dict[0])
 
@@ -282,16 +259,12 @@ def draw_frequencies_2(dict, changes, folder_name):
     ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3', linewidth=0.75)
     ax.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
 
-    # ax.plot(range(shift, l), dict[4][shift:], color='tab:brown', label='4', linewidth=0.75)
-
     plt.yscale('log')
     ax.set_ylabel(r'Frequency of Change in $\beta_2$')
     ax.set_xlabel('t')
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    # ax.ticklabel_format(useOffset=False)
     plt.legend(loc=1, prop={'size': 6})
     fig.savefig(folder_name+'/fr_b_2.png', format='png', dpi=1200)
-    # plt.show()
     plt.close()
 
 def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
@@ -319,14 +292,6 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
 
     except ValueError:
         er[3] = 1
-        # ax.set_xticks(x)
-        # ax.set_xticklabels(labels)
-        # handles, labels = ax.get_legend_handles_labels()
-        # # labels = [labels[0], labels[2], labels[1]]
-        # patch = mpatches.Patch(color='orange', label='Tetrominoes Final', linewidth=0.35)
-        # handles.append(patch)
-        # labels.append('Tetrominoes Final')
-        # ax.legend(handles, labels, loc='upper right')
     if er == [0, 0, 0, 0]:
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
@@ -337,31 +302,25 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
         else:
             handles, labelss = ax.get_legend_handles_labels()
         if er[0] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='navy', label='Trominoes Total', linewidth=0.35)
             handles.append(patch)
         if er[1] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='royalblue', label='Trominoes Final', linewidth=0.35)
             handles.append(patch)
         if er[2] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='chocolate', label='Tetrominoes Total', linewidth=0.35)
             handles.append(patch)
         if er[3] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='orange', label='Tetrominoes Final', linewidth=0.35)
             handles.append(patch)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.legend(handles=handles, loc='upper right')
 
-    # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Type of a Hole')
     fig.tight_layout()
     fig.savefig(folder_name+'/tri-tetra-cubes.png', format='png', dpi=1200)
-    # plt.show()
     plt.close()
 
 def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_name):
@@ -375,8 +334,6 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_
     xdata = xdata_f[N:]
     plt.xscale('log')
     plt.yscale('log')
-    # plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-    # plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
     plt.plot(xdata_f[n:], ydata_f[n:], 'm-', label=r'$\beta_1(t)$ data',  linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
 
@@ -402,7 +359,6 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_
     plt.tight_layout()
 
     plt.savefig(folder_name+'/per-b-time.png', dpi=1200)
-    # plt.show()
     plt.close()
 
 
@@ -410,7 +366,6 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_
 def read_eden_txt(filename):
     eden = []
     for t in open(filename).read().split('), ('):
-        # print(t)
         a, b, c, t = t.strip('()[]').split(',')
         a = a.strip()
         b = b.strip()
@@ -498,8 +453,6 @@ def distances(hole):
 
 def return_frequencies_1(vect, time):
     changes = [vect[i+1]-vect[i] for i in range(len(vect)-1)]
-    # values = list(set(changes))
-    # values.sort()
     values = [-3, -2, -1, 0, 1, 2, 3, 4]
     freq = {i: [0] for i in values}
 
@@ -511,8 +464,6 @@ def return_frequencies_1(vect, time):
 
 def return_frequencies_2(vect, time):
     changes = [vect[i+1]-vect[i] for i in range(len(vect)-1)]
-    # values = list(set(changes))
-    # values.sort()
     values = [-1, 0, 1, 2, 3, 4]
     freq = {i: [0] for i in values}
 
@@ -535,8 +486,6 @@ def draw_barcode(barcode, time):
     """ """
     fig = plt.figure()
     plt.style.use('ggplot')
-    # plt.axis('off')
-    # plt.rc('grid', linestyle="-", color='black')
     plt.grid(True)
     plt.rc('grid', linestyle="-", color='gray')
     plt.yticks([])
@@ -549,7 +498,6 @@ def draw_barcode(barcode, time):
             plt.plot([barcode[x][0], barcode[x][1]], [i, i], 'k-', lw=2)
         i = i + 40
     fig.savefig('5000.png')
-    # plt.show()
 
 def start_eden():
     eden = {(0, 0, 0): [1, 0, 0],
@@ -885,18 +833,12 @@ def add_neighbours_bds(bds, j, iterations, num_possible_components, merged, fini
 def increment_betti_2(eden, tile_selected, nearest_n, nearest_n_tiles, barcode, time, holes, total_holes, created_holes,
                       tags):
 
-    total_holes_old = total_holes
-    barcode_old = barcode
-    holes_old = holes
-    created_holes_old = created_holes
-    tags_old = tags
-
     if eden[tile_selected][2] == 0:
         per = 1  # This is 1 if the tile added was in the out perimeter
     else:
         num_hole = eden[tile_selected][2]
         per = 0
-    # In this case the tile added was in a hole
+        # In this case the tile added was in a hole
 
     betti_2 = 0
 
@@ -911,7 +853,6 @@ def increment_betti_2(eden, tile_selected, nearest_n, nearest_n_tiles, barcode, 
         betti_2 = 0
         if per == 0:
             holes[num_hole].remove(tile_selected)
-    # print(nearest_n)
     if sum(nearest_n) != 6 and sum(nearest_n) != 5:
         num_possible_components = 0
         bds = []
@@ -935,7 +876,6 @@ def increment_betti_2(eden, tile_selected, nearest_n, nearest_n_tiles, barcode, 
 
         betti_2 = (num_possible_components - 1) - sum(merged)
 
-        # print(betti_2, per)
         # At this point we have the bds components and the ones that were not merged will become the holes.
         # Here we actualize the holes and we actualize Hole No in eden.
         if betti_2 == 0:

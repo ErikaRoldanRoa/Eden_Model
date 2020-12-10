@@ -19,16 +19,16 @@ print('Welcome to EDEN Model!')
 
 print('Please, enter the desired dimension of your model (from 2 to 5): ')
 dim = read_value([2, 3, 4, 5])
-# dim = 2
 
 print('Do you have a file with a model? \n0 -- you want to generate a new model \n1 -- you have a file')
-file = read_value([0, 1])
-# file = 1
+file = bool(read_value([0, 1]))
 
 if dim <= 3:
     print('Do you want a picture of your model? (with a large model it can take time)  \n0 -- no \n1 -- yes')
-    pic = read_value([0, 1])
-    # pic = 0
+    pic = bool(read_value([0, 1]))
+
+print('Do you want a GUDHI barcode(s)? \n0 -- no \n1 -- yes')
+gudhi = bool(read_value([0, 1]))
 
 """NO FILE CASE"""
 if not file:
@@ -80,7 +80,7 @@ if not file:
         plot_b_per(Betti_1_total_vector, Perimeter_len, Time, folder_name)
         draw_diagram_holes(Created_holes, Holes, folder_name, dim)
         # draw_barcode(Barcode, Time)
-        if pic == 1:
+        if pic:
             print("\nDrawing the complex...")
             draw_polyomino(Eden, Time, folder_name)
     elif dim == 3:
@@ -90,12 +90,6 @@ if not file:
         print("\nBuilding a model...")
         Eden, Perimeter, Betti_2_total_vector, Betti_2_vector_changes, Barcode, Holes, Betti_1_total, \
             Betti_1_total_vector, Created_holes, Process, Perimeter_len, Skipped, I, Final_barcode = grow_eden(Time)
-
-        # f = open("3d/sample_time_list.txt", "w+")
-        # Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
-        # f.write(str(Process_file))
-        # f.close()
-        # print("File is written!")
 
         print("\nCalculating frequencies of Betti_1...")
         freq, changes = return_frequencies_1(Betti_1_total_vector, Time)
@@ -114,7 +108,7 @@ if not file:
             print("\nDrawing Barcodes...")
             gudhi_analysis(Filename, Final_barcode, folder_name, length)
 
-        if pic == 1:
+        if pic:
             a = 1
             f = open(folder_name+"/MAYA.txt", "w+")
             f.write("import maya.cmds as cmds \nimport math as m \n"
@@ -129,10 +123,7 @@ if not file:
         from e_2d import draw_diagram_holes
         Eden, Perimeter, betti_3_vector, barcode, Holes, betti_3_total, Created_holes, Process, Perimeter_len,\
             Betti_3_total_vector, Final_barcode = grow_eden(Time)
-        # f = open("4d/sample_time_list.txt", "w+")
-        # Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
-        # f.write(str(Process_file))
-        # f.close()
+
         if not os.path.exists('4d/'+str(int(Time/1000))+'k/'):
             os.makedirs('4d/'+str(int(Time/1000))+'k/')
         print("\nCalculating frequencies of Betti_3...")
@@ -159,11 +150,6 @@ if not file:
         Eden, Perimeter, Betti_4_total_vector, Barcode, Holes, Created_holes, Process, Perimeter_len, \
             Final_barcode = grow_eden(Time)
 
-        f = open("5d/sample_time_list.txt", "w+")
-        Process_file = [(tuple(x), i) for i, x in enumerate(Process)]
-        f.write(str(Process_file))
-        f.close()
-
         print("\nCalculating frequencies of Betti_4...")
         freq, changes = return_frequencies_4(Betti_4_total_vector, Time)
         changes = np.array(changes)
@@ -184,17 +170,14 @@ if not file:
             gudhi_analysis(Filename, Final_barcode, folder_name, length)
 
 """FILE CASE"""
-if file == 1:
+if file:
     print('What is the format of the file? \n0 -- list of tuples \n1 -- Perseus')
     file_format = read_value([0, 1])
-    # file_format = 1
     print('Name of the file (for example, filename.txt):')
     filename = str(input())
     while not Path(str(dim)+"d/files/"+filename).exists():
         print("Oops!  That was no valid name.  Try again...")
         filename = str(input())
-    # filename = '1000000_1_2D_final.txt'
-    # filename = 'sample_time_list.txt'
     from e_2d import read_eden_perseus, read_eden_txt
     if file_format == 1:
         Eden_f = read_eden_perseus(str(dim)+"d/files/"+filename)
@@ -219,14 +202,13 @@ if file == 1:
         plot_b_per(Betti_1_total_vector, Perimeter_len, Time, Times)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
         # draw_barcode(Barcode, Time)
-        if pic == 1:
+        if pic:
             print("Drawing the complex...")
             draw_polyomino(Eden, Time)
     if dim == 3:
         from e_3d import return_frequencies_1, draw_frequencies_1, num_holes, draw_tri_tetra, plot_b_per,\
             return_frequencies_2, draw_frequencies_2, grow_eden_debugging, convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
-        # Eden_f = read_eden_txt("3d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
@@ -249,12 +231,13 @@ if file == 1:
         plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0)
         draw_diagram_holes(Created_holes, Holes, Time, dim)
 
-        print("\nGudhi file...")
-        Filename = convert_gudhi(Process)
-        print("\nDrawing Barcodes...")
-        gudhi_analysis(Filename, Final_barcode, Time)
+        if gudhi:
+            print("\nGudhi file...")
+            Filename = convert_gudhi(Process)
+            print("\nDrawing Barcodes...")
+            gudhi_analysis(Filename, Final_barcode, Time)
 
-        if pic == 1:
+        if pic:
             a = 1
             f = open("3d/"+str(int(Time/1000))+"k/MAYA.txt", "w+")
             f.write("import maya.cmds as cmds \nimport math as m \n"
@@ -267,7 +250,6 @@ if file == 1:
         from e_4d import grow_eden_debugging, draw_frequencies_3, return_frequencies_3, plot_b_per,\
             convert_gudhi, gudhi_analysis
         from e_2d import draw_diagram_holes
-        # Eden_f = read_eden_txt("4d/sample_time_list.txt")
         Eden = [x[0] for x in Eden_f]
         Times = [x[1] for x in Eden_f]
         Time = len(Eden)
@@ -284,11 +266,11 @@ if file == 1:
         draw_diagram_holes(Created_holes, Holes, Time, dim)
         plot_b_per(Betti_3_total_vector, Perimeter_len, Time, 0)
 
-        print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process)
-
-        print("\nDrawing Barcodes...")
-        gudhi_analysis(Filename, Final_barcode, Time)
+        if gudhi:
+            print("\nCreating Gudhi file...")
+            Filename = convert_gudhi(Process)
+            print("\nDrawing Barcodes...")
+            gudhi_analysis(Filename, Final_barcode, Time)
 
 
 print("WE ARE DONE! CHECK THE FOLDER!")

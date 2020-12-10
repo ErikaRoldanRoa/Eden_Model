@@ -15,6 +15,8 @@ import gudhi as gd
 from scipy.optimize import curve_fit
 
 """GROWING"""
+
+
 def grow_eden(t):
     process = [(0, 0, 0, 0, 0)]
     perimeter_len = [10]
@@ -37,7 +39,7 @@ def grow_eden(t):
         pbar.update(1)
 
         l = len(perimeter)
-        x = random.randint(0, l-1)
+        x = random.randint(0, l - 1)
         tile_selected = perimeter[x]
         perimeter.pop(x)
 
@@ -45,8 +47,12 @@ def grow_eden(t):
         process = process + [tile_selected]
 
         eden, perimeter, nearest_n, nearest_n_tiles = actualize_neighbors(tile_selected, eden, perimeter)
-        betti_4, total_holes, eden, barcode, holes, created_holes, tags = increment_betti_4(eden, tile_selected, nearest_n, nearest_n_tiles, barcode, i, holes, total_holes, created_holes, tags)
-        betti_4_total = betti_4_total+betti_4
+        betti_4, total_holes, eden, barcode, holes, created_holes, tags = increment_betti_4(eden, tile_selected,
+                                                                                            nearest_n, nearest_n_tiles,
+                                                                                            barcode, i, holes,
+                                                                                            total_holes, created_holes,
+                                                                                            tags)
+        betti_4_total = betti_4_total + betti_4
         betti_4_vector = betti_4_vector + [betti_4]
         betti_4_total_vector = betti_4_total_vector + [betti_4_total]
 
@@ -57,9 +63,11 @@ def grow_eden(t):
 
     return eden, perimeter, betti_4_total_vector, barcode, holes, created_holes, process, perimeter_len, final_barcode
 
-"""GUDHI"""
-def convert_gudhi(process, folder_name):
 
+"""GUDHI"""
+
+
+def convert_gudhi(process, folder_name):
     min_x = min(process, key=lambda x: x[0])
     max_x = max(process, key=lambda x: x[0])
     min_y = min(process, key=lambda x: x[1])
@@ -71,16 +79,16 @@ def convert_gudhi(process, folder_name):
     min_v = min(process, key=lambda x: x[4])
     max_v = max(process, key=lambda x: x[4])
     dimension = 5
-    long = max_x[0] + ((-1)*(min_x[0])) + 1
-    wide = max_y[1] + ((-1)*(min_y[1])) + 1
-    deep = max_z[2] + ((-1)*(min_z[2])) + 1
-    blup = max_w[3] + ((-1)*(min_w[3])) + 1
-    clop = max_v[4] + ((-1)*(min_v[4])) + 1
+    long = max_x[0] + ((-1) * (min_x[0])) + 1
+    wide = max_y[1] + ((-1) * (min_y[1])) + 1
+    deep = max_z[2] + ((-1) * (min_z[2])) + 1
+    blup = max_w[3] + ((-1) * (min_w[3])) + 1
+    clop = max_v[4] + ((-1) * (min_v[4])) + 1
 
     time = len(process)
-    filename = folder_name+'/gudhi.txt'
+    filename = folder_name + '/gudhi.txt'
 
-    total = long*wide*deep*blup*clop
+    total = long * wide * deep * blup * clop
     pbar = tqdm(total=total, position=0, leave=True)
 
     with open(filename, 'w+') as f:
@@ -104,24 +112,23 @@ def convert_gudhi(process, folder_name):
     pbar.close()
     return filename
 
-def convert_perseus_2(Process):
 
+def convert_perseus_2(Process):
     dimension = 4
-    with open('500000_1_5D.txt','w') as f:
-        f.writelines( '%d\n' % dimension)
+    with open('500000_1_5D.txt', 'w') as f:
+        f.writelines('%d\n' % dimension)
         i = 0
         for x in Process:
             i = i + 1
-            y = (x[0], x[1], x [2], x[3], x[4], i)
-            f.writelines( '%s %s %s %s %s %s\n' % y)
+            y = (x[0], x[1], x[2], x[3], x[4], i)
+            f.writelines('%s %s %s %s %s %s\n' % y)
+
 
 def gudhi_analysis(filename, final_barcode, folder_name, length):
     print('\nCreating Cubical Complex...')
     eden_model = gd.CubicalComplex(perseus_file=filename)
     print('Computing Persistence...')
     eden_model.persistence()
-    # A = eden_model.persistence_intervals_in_dimension(1)
-    # B = [elem for elem in A if elem[1] == float('inf')]
     barcode_gudhi = eden_model.persistence_intervals_in_dimension(3)
     final = np.array(final_barcode)
     barcode_gudhi_sorted = barcode_gudhi.sort()
@@ -136,21 +143,21 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(persistence=pers_1, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_1$')
-    plt.savefig(folder_name+'/barcode_1.png', dpi=1200)
+    plt.savefig(folder_name + '/barcode_1.png', dpi=1200)
 
     print("\nDrawing Barcode for Betti_2...")
     pers_2 = [x for x in eden_model.persistence(min_persistence=length[1]) if x[0] == 2]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
-    plt.savefig(folder_name+'/barcode_2.png', dpi=1200)
+    plt.savefig(folder_name + '/barcode_2.png', dpi=1200)
 
     print("\nDrawing Barcode for Betti_3...")
     pers_3 = [x for x in eden_model.persistence(min_persistence=length[2]) if x[0] == 3]
     fig, ax = plt.subplots()
     gd.plot_persistence_barcode(pers_3, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_3$')
-    plt.savefig(folder_name+'/barcode_3.png', dpi=1200)
+    plt.savefig(folder_name + '/barcode_3.png', dpi=1200)
 
     try:
         print("\nDrawing Barcode for Betti_4...")
@@ -158,11 +165,14 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
         fig, ax = plt.subplots()
         gd.plot_persistence_barcode(pers_4, max_barcodes=1000)
         ax.set_title(r'Persistence Barcode $\beta_3$')
-        plt.savefig(folder_name+'/barcode_4.png', dpi=1200)
+        plt.savefig(folder_name + '/barcode_4.png', dpi=1200)
     except IndexError:
         print("No Betti_4 => No Barcode")
 
+
 """PLOTTING"""
+
+
 def draw_frequencies_4(dict, changes, folder_name):
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
@@ -171,7 +181,7 @@ def draw_frequencies_4(dict, changes, folder_name):
     ch_5 = [i for i, j in enumerate(changes) if j == 5]
     y_5 = []
     for x in ch_5:
-        y_5 += [dict[5][x+1]]
+        y_5 += [dict[5][x + 1]]
 
     sh = []
     for j in np.arange(-1, 2):
@@ -179,69 +189,67 @@ def draw_frequencies_4(dict, changes, folder_name):
     shift = max(sh)
 
     if next((i for i, x in enumerate(dict[-1]) if x), 0) != 0:
-        ax.plot(range(shift, l), dict[-1][shift:], color='tab:olive', label='-1',  linewidth=0.75)
-    ax.plot(range(shift, l), dict[0][shift:], color='tab:blue', label='0',  linewidth=0.75)
+        ax.plot(range(shift, l), dict[-1][shift:], color='tab:olive', label='-1', linewidth=0.75)
+    ax.plot(range(shift, l), dict[0][shift:], color='tab:blue', label='0', linewidth=0.75)
     if next((i for i, x in enumerate(dict[1]) if x), 0) != 0:
-        ax.plot(range(shift, l), dict[1][shift:], color='tab:red', label='+1',  linewidth=0.75)
+        ax.plot(range(shift, l), dict[1][shift:], color='tab:red', label='+1', linewidth=0.75)
     if next((i for i, x in enumerate(dict[2]) if x), 0) != 0:
-        ax.plot(range(shift, l), dict[2][shift:], color='tab:orange', label='+2',  linewidth=0.75)
+        ax.plot(range(shift, l), dict[2][shift:], color='tab:orange', label='+2', linewidth=0.75)
     if next((i for i, x in enumerate(dict[3]) if x), 0) != 0:
-        ax.plot(range(shift, l), dict[3][shift:], color='tab:green', label='+3',  linewidth=0.75)
+        ax.plot(range(shift, l), dict[3][shift:], color='tab:green', label='+3', linewidth=0.75)
     if next((i for i, x in enumerate(dict[4]) if x), 0) != 0:
-        ax.plot(range(shift, l), dict[4][shift:], color='black', label='+4',  linewidth=0.75)
-    # shift = next((i for i, x in enumerate(dict[3]) if x), 0)
-    # ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3',  linewidth=0.75)
-    # ax.plot(range(shift, l), dict[4][shift:], color='tab:brown', label='4',  linewidth=0.75)
+        ax.plot(range(shift, l), dict[4][shift:], color='black', label='+4', linewidth=0.75)
+
     if next((i for i, x in enumerate(dict[5]) if x), 0) != 0:
         plt.scatter(ch_5, y_5, s=5, marker='o', color="tab:brown", label='+5')
-    # print(ch_5)
-    # plt.scatter(ch_m_4, y_m_4, s = 10, marker='o', color="black", label='-4')
 
     plt.yscale('log')
-    # ax.set_title('betti_1 frequencies')
+
     ax.set_ylabel(r'Frequency of Change in $\beta_4$')
     ax.set_xlabel('t')
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
-    # ax.ticklabel_format(useOffset=False)
     ax.legend(loc=1, prop={'size': 6})
-    fig.savefig(folder_name+'/fr_b_4.png', format='png', dpi=1200)
-    # plt.show()
+    fig.savefig(folder_name + '/fr_b_4.png', format='png', dpi=1200)
     plt.close()
 
+
 def plot_b_per(Betti_4_total_vector, Per, time, N, folder_name):
-    n = int(time/10)
+    n = int(time / 10)
 
     def func(x, a, b):
         return a * x ** b
+
     ydata_f = Betti_4_total_vector
     xdata_f = range(len(ydata_f))
     ydata = ydata_f[N:]
     xdata = xdata_f[N:]
     plt.xscale('log')
     plt.yscale('log')
-    # plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-    # plt.ticklabel_format(style='sci', axis='y', scilimits=(0,0))
-    plt.plot(xdata_f[n:], ydata_f[n:], 'm-', label=r'$\beta_4(t)$ data',  linewidth=0.75)
+    plt.plot(xdata_f[n:], ydata_f[n:], 'm-', label=r'$\beta_4(t)$ data', linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
 
-    plt.plot(xdata_f[n:], func(xdata_f[n:], *popt), 'm--', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt), linewidth=0.75)
+    plt.plot(xdata_f[n:], func(xdata_f[n:], *popt), 'm--', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt),
+             linewidth=0.75)
 
     ydata = Per
     xdata = range(len(ydata))
-    plt.plot(xdata[n:], ydata[n:], color='orange', linestyle='solid', label=r'$P(t)$ data',  linewidth=0.75)
+    plt.plot(xdata[n:], ydata[n:], color='orange', linestyle='solid', label=r'$P(t)$ data', linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
-    plt.plot(xdata[n:], func(xdata[n:], *popt), color='orange', linestyle='dashed', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt),  linewidth=0.75)
+    plt.plot(xdata[n:], func(xdata[n:], *popt), color='orange', linestyle='dashed',
+             label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt), linewidth=0.75)
 
     plt.xlabel('t')
     plt.ylabel('data')
     plt.legend(prop={'size': 6}, loc=2)
     plt.tight_layout()
 
-    plt.savefig(folder_name+'/per-b-time.png', dpi=1200)
-    # plt.show()
+    plt.savefig(folder_name + '/per-b-time.png', dpi=1200)
     plt.close()
 
+
 """SUPPLEMENTARY FUNCTIONS"""
+
+
 def read_eden_txt(filename):
     eden = []
     for t in open(filename).read().split('), ('):
@@ -255,57 +263,61 @@ def read_eden_txt(filename):
         eden.append(((int(a), int(b), int(c), int(d), int(e)), float(t)))
     return eden
 
+
 def return_frequencies_4(vect, time):
-    changes = [vect[i+1]-vect[i] for i in range(len(vect)-1)]
+    changes = [vect[i + 1] - vect[i] for i in range(len(vect) - 1)]
     values = list(set(changes))
     values.sort()
-    print('VALUES: ', values)
     values = [-1, 0, 1, 2, 3, 4, 5]
     freq = {i: [0] for i in values}
 
-    for i in tqdm(range(1, time+1), position=0, leave=True):
+    for i in tqdm(range(1, time + 1), position=0, leave=True):
         counter = collections.Counter(changes[:i])
         for k in values:
-            freq[k].append(counter[k]/i)
+            freq[k].append(counter[k] / i)
     return freq, changes
+
 
 def hamming2(s1, s2):
     """Calculate the Hamming distance between two bit strings"""
     assert len(s1) == len(s2)
     return sum(c1 != c2 for c1, c2 in zip(s1, s2))
 
+
 def Diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
     return li_dif
 
+
 def start_eden():
-    Eden = {(0, 0, 0, 0, 0) : [1, 0, 0],
-            (0, 0, 1, 0, 0) : [0, 1, 0],
+    eden = {(0, 0, 0, 0, 0): [1, 0, 0],
+            (0, 0, 1, 0, 0): [0, 1, 0],
             (0, 0, -1, 0, 0): [0, 1, 0],
-            (1, 0, 0, 0, 0) : [0, 1, 0],
+            (1, 0, 0, 0, 0): [0, 1, 0],
             (-1, 0, 0, 0, 0): [0, 1, 0],
-            (0, 1, 0, 0, 0) : [0, 1, 0],
-            (0,-1, 0, 0, 0) : [0, 1, 0],
-            (0, 0, 0, 1, 0) : [0, 1, 0],
+            (0, 1, 0, 0, 0): [0, 1, 0],
+            (0, -1, 0, 0, 0): [0, 1, 0],
+            (0, 0, 0, 1, 0): [0, 1, 0],
             (0, 0, 0, -1, 0): [0, 1, 0],
-            (0, 0, 0, 0, 1) : [0, 1, 0],
+            (0, 0, 0, 0, 1): [0, 1, 0],
             (0, 0, 0, 0, -1): [0, 1, 0]
             }
-    Perimeter = [(0, 0, 1, 0, 0), (0, 0, -1, 0, 0), (1, 0, 0, 0, 0), (-1, 0, 0, 0, 0), (0, 1, 0, 0, 0), (0, -1, 0, 0, 0), (0, 0, 0, 1, 0), (0, 0, 0, -1, 0), (0, 0, 0, 0, 1), (0, 0, 0, 0, -1)]
-    return Eden, Perimeter
+    perimeter = [(0, 0, 1, 0, 0), (0, 0, -1, 0, 0), (1, 0, 0, 0, 0), (-1, 0, 0, 0, 0), (0, 1, 0, 0, 0),
+                 (0, -1, 0, 0, 0), (0, 0, 0, 1, 0), (0, 0, 0, -1, 0), (0, 0, 0, 0, 1), (0, 0, 0, 0, -1)]
+    return eden, perimeter
+
 
 def actualize_neighbors(tile_selected, Eden, Perimeter):
-
     n3 = [tile_selected[0] + 1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
-    n4 = [tile_selected[0]  -1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
+    n4 = [tile_selected[0] - 1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
     n5 = [tile_selected[0], tile_selected[1] + 1, tile_selected[2], tile_selected[3], tile_selected[4]]
     n6 = [tile_selected[0], tile_selected[1] - 1, tile_selected[2], tile_selected[3], tile_selected[4]]
     n1 = [tile_selected[0], tile_selected[1], tile_selected[2] + 1, tile_selected[3], tile_selected[4]]
     n2 = [tile_selected[0], tile_selected[1], tile_selected[2] - 1, tile_selected[3], tile_selected[4]]
     n7 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3] + 1, tile_selected[4]]
     n8 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3] - 1, tile_selected[4]]
-    n9 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] +1]
-    n10 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] -1]
+    n9 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] + 1]
+    n10 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] - 1]
 
     n1 = tuple(n1)
     n2 = tuple(n2)
@@ -404,21 +416,20 @@ def actualize_neighbors(tile_selected, Eden, Perimeter):
 
     return Eden, Perimeter, nearest_n, nearest_n_tiles
 
-def add_neighbours_bds(bds, j, iterations, num_possible_components, merged, finished, Eden):
 
+def add_neighbours_bds(bds, j, iterations, num_possible_components, merged, finished, Eden):
     tile_selected = bds[j][iterations]
 
-
     n3 = [tile_selected[0] + 1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
-    n4 = [tile_selected[0]  -1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
+    n4 = [tile_selected[0] - 1, tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4]]
     n5 = [tile_selected[0], tile_selected[1] + 1, tile_selected[2], tile_selected[3], tile_selected[4]]
     n6 = [tile_selected[0], tile_selected[1] - 1, tile_selected[2], tile_selected[3], tile_selected[4]]
     n1 = [tile_selected[0], tile_selected[1], tile_selected[2] + 1, tile_selected[3], tile_selected[4]]
     n2 = [tile_selected[0], tile_selected[1], tile_selected[2] - 1, tile_selected[3], tile_selected[4]]
     n7 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3] + 1, tile_selected[4]]
     n8 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3] - 1, tile_selected[4]]
-    n9 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] +1]
-    n10 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] -1]
+    n9 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] + 1]
+    n10 = [tile_selected[0], tile_selected[1], tile_selected[2], tile_selected[3], tile_selected[4] - 1]
 
     n1 = tuple(n1)
     n2 = tuple(n2)
@@ -495,8 +506,7 @@ def add_neighbours_bds(bds, j, iterations, num_possible_components, merged, fini
     else:
         nearest_n[9] = 1
 
-
-    for i in range(0,10):
+    for i in range(0, 10):
         if nearest_n[i] == 1:
             if nearest_n_tiles[i] not in bds[j]:
                 bds[j] = bds[j] + [nearest_n_tiles[i]]
@@ -510,90 +520,90 @@ def add_neighbours_bds(bds, j, iterations, num_possible_components, merged, fini
                         finished[t] = 1
     return bds, merged, finished
 
-def increment_betti_4(Eden, tile_selected, nearest_n, nearest_n_tiles, barcode, time, Holes, total_holes, Created_Holes, tags):
+
+def increment_betti_4(Eden, tile_selected, nearest_n, nearest_n_tiles, barcode, time, holes, total_holes, created_holes,
+                      tags):
     if Eden[tile_selected][2] == 0:
-        per = 1                       # This is 1 if the tile added was in the out perimeter
+        per = 1  # This is 1 if the tile added was in the out perimeter
     else:
         num_hole = Eden[tile_selected][2]
         per = 0
-  # In this case the tile added was in a hole
+    # In this case the tile added was in a hole
 
     betti_4 = 0
 
     if sum(nearest_n) == 10:
         betti_4 = - 1
-        barcode[num_hole][1][1] = float(time + 2)   #Are we covering a hole that was never divided?
-        Holes[num_hole].remove(tile_selected)
-        if Holes[num_hole] == []:
-            Holes.pop(num_hole)
+        barcode[num_hole][1][1] = float(time + 2)  # Are we covering a hole that was never divided?
+        holes[num_hole].remove(tile_selected)
+        if holes[num_hole] == []:
+            holes.pop(num_hole)
 
     if sum(nearest_n) == 9:
         betti_4 = 0
         if per == 0:
-            Holes[num_hole].remove(tile_selected)
-    #print(nearest_n)
+            holes[num_hole].remove(tile_selected)
+
     if sum(nearest_n) != 10 and sum(nearest_n) != 9:
-        num_posible_components = 0
+        num_possible_components = 0
         bds = []
         iterations = 0
-        for i in range(0,10):
+        for i in range(0, 10):
             if nearest_n[i] == 0:
-                num_posible_components = num_posible_components + 1
+                num_possible_components = num_possible_components + 1
                 bds = bds + [[nearest_n_tiles[i]]]
 
-        finished = [0] * num_posible_components
+        finished = [0] * num_possible_components
         merged = finished.copy()
 
-
-        while sum(finished) < num_posible_components - per:
-            for j in range(0, num_posible_components):
+        while sum(finished) < num_possible_components - per:
+            for j in range(0, num_possible_components):
                 if finished[j] == 0:
-                    bds, merged, finished = add_neighbours_bds(bds, j, iterations, num_posible_components, merged, finished, Eden)
+                    bds, merged, finished = add_neighbours_bds(bds, j, iterations, num_possible_components, merged,
+                                                               finished, Eden)
                     if (iterations + 1) == len(bds[j]):
                         finished[j] = 1
             iterations = iterations + 1
 
-        betti_4 = (num_posible_components - 1) - sum(merged)
-        #print(betti_2, per)
-        #At this point we have the bds components and the ones that were not merged will become the holes.
-        #Here we actualize the holes and we actualize Hole No in Eden.
+        betti_4 = (num_possible_components - 1) - sum(merged)
+        # At this point we have the bds components and the ones that were not merged will become the holes.
+        # Here we actualize the holes and we actualize Hole No in Eden.
         if betti_4 == 0:
             if per == 0:
-                Holes[num_hole].remove(tile_selected)
+                holes[num_hole].remove(tile_selected)
 
         else:
             if per == 1:
-                for i in range(0, num_posible_components):
+                for i in range(0, num_possible_components):
                     if finished[i] == 1 and merged[i] == 0:
                         total_holes = total_holes + 1
-                        Holes[total_holes] = bds[i].copy()
+                        holes[total_holes] = bds[i].copy()
 
                         for x in bds[i]:
                             if x in Eden:
                                 Eden[x][2] = total_holes
 
                         barcode[total_holes] = [0, [float(time + 2), float(0)], [total_holes]]
-                        Created_Holes = Created_Holes + [[barcode[total_holes][2], bds[i].copy(), len(bds[i])]]
+                        created_holes = created_holes + [[barcode[total_holes][2], bds[i].copy(), len(bds[i])]]
 
             else:
                 if barcode[num_hole][0] == 0:
                     tags = tags + [num_hole]
                     barcode[num_hole][0] = 1
 
-                Holes.pop(num_hole)
+                holes.pop(num_hole)
 
-                for i in range(0, num_posible_components):
-                    if  finished[i] == 1 and merged[i] == 0:
+                for i in range(0, num_possible_components):
+                    if finished[i] == 1 and merged[i] == 0:
                         total_holes = total_holes + 1
-                        Holes[total_holes] = bds[i].copy()
+                        holes[total_holes] = bds[i].copy()
                         for x in bds[i]:
                             if x in Eden:
                                 Eden[x][2] = total_holes
                         barcode[total_holes] = [1, [float(time + 2), float(0)], barcode[num_hole][2] + [total_holes]]
-                        Created_Holes = Created_Holes + [[barcode[total_holes][2], bds[i].copy(), len(bds[i])]]
+                        created_holes = created_holes + [[barcode[total_holes][2], bds[i].copy(), len(bds[i])]]
+    return betti_4, total_holes, Eden, barcode, holes, created_holes, tags
 
-
-    return  betti_4, total_holes, Eden, barcode, Holes, Created_Holes, tags
 
 def barcode_forest(barcode, tags):
     bars_pure = []
@@ -607,34 +617,29 @@ def barcode_forest(barcode, tags):
         for elem in barcode:
             if barcode[elem][2][0] == x:
                 b[tuple(barcode[elem][2])] = barcode[elem][1]
-#        print(b)
         bars_hole = bars_hole + bars_from_tree(b, x)
     return bars_pure + bars_hole
+
 
 def bars_from_tree(b, tag):
     n = max(len(x) for x in b)
     bars = []
     while n > 0:
-        leaves_parent = [ x for x in b if len(x)== n - 1 ]
+        leaves_parent = [x for x in b if len(x) == n - 1]
 
-#        print(leaves_parent)
-        possible_leaves = [ x for x in b if len(x)== n ]
-#        print(possible_leaves)
+        possible_leaves = [x for x in b if len(x) == n]
         for j in leaves_parent:
             leaves = []
             for x in possible_leaves:
-#            print(x)
                 root = list(x)
                 del root[-1]
                 root = tuple(root)
-                if  hamming2(j, root) == 0:
+                if hamming2(j, root) == 0:
                     leaves = leaves + [x]
-#            Diff(possible_leaves, leaves)
-#            print(leaves)
-            if len(leaves) > 0 :
+            if len(leaves) > 0:
                 times = []
                 for x in leaves:
-                    times = times  + [b[x][1]]
+                    times = times + [b[x][1]]
                 if 0 in times:
                     ind = times.index(0)
                     for i in range(0, len(leaves)):
@@ -644,17 +649,8 @@ def bars_from_tree(b, tag):
                     ind = times.index(max(times))
                     for i in range(0, len(leaves)):
                         if i != ind:
-                            bars = bars + [b[leaves[i]] ]
+                            bars = bars + [b[leaves[i]]]
                     b[j][1] = max(times)
         n = n - 1
     bars = bars + [b[(tag,)]]
     return bars
-
-
-
-
-
-
-
-
-

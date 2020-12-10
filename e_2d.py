@@ -617,7 +617,6 @@ def draw_diagram_holes(created_holes, holes, folder_name):
     plt.yscale('log')
     ax.bar(np.array(list(counter_cr.keys())) - width/2, counter_cr.values(), width, color=[(0.44, 0.57, 0.79)], label='Total')
     ax.bar(np.array(list(counter_final.keys())) + width/2, counter_final.values(), width, color=[(225/256, 151/256, 76/256)], label='Final')
-    # Add some text for labels, title and custom x-axis tick labels, etc.
 
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Volume')
@@ -639,7 +638,6 @@ def draw_diagram_holes(created_holes, holes, folder_name):
     ax.legend()
     fig.tight_layout()
     fig.savefig(folder_name+'/holes.png', format='png', dpi=1200)
-    # plt.show()
     plt.close()
 
 def plot_b_per(b1, p2, time, folder_name, times=None):
@@ -655,8 +653,6 @@ def plot_b_per(b1, p2, time, folder_name, times=None):
     xdata = xdata_f
     plt.xscale('log')
     plt.yscale('log')
-    # plt.ticklabel_format(style='sci', axis='x', scilimits=(0,0))
-    # plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
     plt.plot(xdata_f[n:], ydata_f[n:], 'm-', label=r'$\beta_1(t)$ data',  linewidth=0.75)
     popt, pcov = curve_fit(func, xdata, ydata)
     plt.plot(xdata_f[n:], func(xdata_f[n:], *popt), 'm--', label=r'fit: $y=%5.2f x^{%5.3f}$' % tuple(popt), linewidth=0.75)
@@ -672,7 +668,6 @@ def plot_b_per(b1, p2, time, folder_name, times=None):
     plt.legend(prop={'size': 6})
     plt.tight_layout()
     plt.savefig(folder_name+'/per-b-time_'+str(time)+'.png', dpi=1200)
-    # plt.show()
     plt.close()
 
 def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
@@ -700,76 +695,33 @@ def draw_tri_tetra(tri, tri_f, tetra, tetra_f, folder_name):
 
     except ValueError:
         er[3] = 1
-        # ax.set_xticks(x)
-        # ax.set_xticklabels(labels)
-        # handles, labels = ax.get_legend_handles_labels()
-        # # labels = [labels[0], labels[2], labels[1]]
-        # patch = mpatches.Patch(color='orange', label='Tetrominoes Final', linewidth=0.35)
-        # handles.append(patch)
-        # labels.append('Tetrominoes Final')
-        # ax.legend(handles, labels, loc='upper right')
     if er == [0, 0, 0, 0]:
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.legend(loc='upper right')
     else:
-        if er == [1,1,1,1]:
+        if er == [1, 1, 1, 1]:
             handles = []
         else:
-            handles, labelss = ax.get_legend_handles_labels()
+            handles, labels2 = ax.get_legend_handles_labels()
         if er[0] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='navy', label='Trominoes Total', linewidth=0.35)
             handles.append(patch)
         if er[1] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='royalblue', label='Trominoes Final', linewidth=0.35)
             handles.append(patch)
         if er[2] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='chocolate', label='Tetrominoes Total', linewidth=0.35)
             handles.append(patch)
         if er[3] == 1:
-            # handles, labels = ax.get_legend_handles_labels()
             patch = mpatches.Patch(color='orange', label='Tetrominoes Final', linewidth=0.35)
             handles.append(patch)
         ax.set_xticks(x)
         ax.set_xticklabels(labels)
         ax.legend(handles=handles, loc='upper right')
 
-    # Add some text for labels, title and custom x-axis tick labels, etc.
     ax.set_ylabel('Frequency of Number of Holes')
     ax.set_xlabel('Type of a Hole')
     fig.tight_layout()
     fig.savefig(folder_name+'/tro-tetro-minoes.png', format='png', dpi=1200)
-    # plt.show()
     plt.close()
-
-
-#####################
-# with open('3000_3D_barcode_2_24.txt','w') as f:
-#     #     f.writelines( '%s %s\n' % tuple(tu) for tu in final_barcode )
-
-# Eden_f = read_eden_txt("sample_time_list.txt")
-# Eden = [x[0] for x in Eden_f]
-# Times = [x[1] for x in Eden_f]
-# Time = len(Eden)
-# print("Computing persistent homology...")
-# Eden, Perimeter, Betti_1_vector, Betti_1_total_vector, Barcode, Holes, Betti_1_total, Betti_1_euler_total, \
-#     Created_holes, Tags, Final_barcode, Perimeter_len = grow_eden_debugging(len(Eden), Eden)
-
-# Time = 2000
-# Eden, Perimeter, Betti_1_total_vector, Betti_1_vector_changes, Barcode, Holes, Betti_1_total, \
-#     Created_holes, Process, Perimeter_len, Tags, Final_barcode = grow_eden(Time)
-
-# if not os.path.exists('pictures/'+str(int(Time/1000))+'k/'):
-#     os.makedirs('pictures/'+str(int(Time/1000))+'k/')
-# plot_b_per(Betti_1_total_vector, Perimeter_len, Time, Times)
-# draw_diagram_holes(Created_holes, Holes, Time)
-# Tromino, Tromino_f, Tetromino, Tetromino_f = num_holes(Created_holes, Holes)
-# draw_tri_tetra(Tromino, Tromino_f, Tetromino, Tetromino_f, Time)
-# draw_barcode(Barcode, Time)
-# print("Drawing the complex...")
-# draw_polyomino(Eden, Time)
-
-
