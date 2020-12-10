@@ -149,7 +149,11 @@ if file == 0:
 
         print("\nCalculating frequencies of Betti_4...")
         freq, changes = return_frequencies_4(Betti_4_total_vector, Time)
-        draw_frequencies_4(freq, Time, changes)
+        changes = np.array(changes)
+        if np.all((changes == 0)):
+            print("Betti_4 is always 0. Plot can't be generated")
+        else:
+            draw_frequencies_4(freq, changes, folder_name)
         try:
             draw_diagram_holes(Created_holes, Holes, folder_name)
         except IndexError:

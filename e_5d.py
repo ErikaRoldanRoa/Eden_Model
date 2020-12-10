@@ -189,9 +189,11 @@ def draw_frequencies_4(dict, changes, folder_name):
         sh.append(next((i for i, x in enumerate(dict[j]) if x), 0))
     shift = max(sh)
 
-    ax.plot(range(shift, l), dict[-1][shift:], color='tab:olive', label='-1',  linewidth=0.75)
+    if next((i for i, x in enumerate(dict[-1]) if x), 0) != 0:
+        ax.plot(range(shift, l), dict[-1][shift:], color='tab:olive', label='-1',  linewidth=0.75)
     ax.plot(range(shift, l), dict[0][shift:], color='tab:blue', label='0',  linewidth=0.75)
-    ax.plot(range(shift, l), dict[1][shift:], color='tab:red', label='+1',  linewidth=0.75)
+    if next((i for i, x in enumerate(dict[1]) if x), 0) != 0:
+        ax.plot(range(shift, l), dict[1][shift:], color='tab:red', label='+1',  linewidth=0.75)
     if next((i for i, x in enumerate(dict[2]) if x), 0) != 0:
         ax.plot(range(shift, l), dict[2][shift:], color='tab:orange', label='+2',  linewidth=0.75)
     if next((i for i, x in enumerate(dict[3]) if x), 0) != 0:
@@ -208,7 +210,7 @@ def draw_frequencies_4(dict, changes, folder_name):
 
     plt.yscale('log')
     # ax.set_title('betti_1 frequencies')
-    ax.set_ylabel(r'Frequency of Change in $\beta_3$')
+    ax.set_ylabel(r'Frequency of Change in $\beta_4$')
     ax.set_xlabel('t')
     ax.ticklabel_format(style='sci', axis='x', scilimits=(0, 0))
     # ax.ticklabel_format(useOffset=False)

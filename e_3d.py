@@ -398,7 +398,7 @@ def plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Per, time, N, folder_
 
     plt.xlabel('t')
     plt.ylabel('data')
-    plt.legend(prop={'size': 6}, loc = 2)
+    plt.legend(prop={'size': 6}, loc=2)
     plt.tight_layout()
 
     plt.savefig(folder_name+'/per-b-time.png', dpi=1200)
