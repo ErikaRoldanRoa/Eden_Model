@@ -89,6 +89,7 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
     gd.plot_persistence_barcode(pers_3, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_3$')
     plt.savefig(folder_name+'/barcode_3.png', dpi=1200)
+    plt.close()
 
 def convert_perseus_2(Process):
 

@@ -129,7 +129,7 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
     eden_model = gd.CubicalComplex(perseus_file=filename)
     print('Computing Persistence...')
     eden_model.persistence()
-    barcode_gudhi = eden_model.persistence_intervals_in_dimension(3)
+    barcode_gudhi = eden_model.persistence_intervals_in_dimension(4)
     final = np.array(final_barcode)
     barcode_gudhi_sorted = barcode_gudhi.sort()
     final_sorted = final.sort()
@@ -168,7 +168,7 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
         plt.savefig(folder_name + '/barcode_4.png', dpi=1200)
     except IndexError:
         print("No Betti_4 => No Barcode")
-
+    plt.close()
 
 """PLOTTING"""
 

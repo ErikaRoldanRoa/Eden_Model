@@ -27,7 +27,7 @@ def convert_gudhi(process, folder_name):
     wide = max_y[1] + ((-1) * (min_y[1])) + 1
     deep = max_z[2] + ((-1) * (min_z[2])) + 1
     time = len(process)
-    filename = folder_name+'/gudhi_'+str(time)+'.txt'
+    filename = folder_name+'/gudhi.txt'
 
     total = long*wide*deep
     pbar = tqdm(total=total)
@@ -70,6 +70,7 @@ def gudhi_analysis(filename, final_barcode, folder_name, length):
     gd.plot_persistence_barcode(pers_2, max_barcodes=1000)
     ax.set_title(r'Persistence Barcode $\beta_2$')
     plt.savefig(folder_name+'/barcode_2.png', dpi=1200)
+    plt.close()
 
 def convert_perseus_2(process):
     dimension = 3
@@ -227,7 +228,8 @@ def draw_frequencies_1(dict, changes, folder_name):
     ax.plot(range(shift, l), dict[2][shift:], color='tab:blue', label='+2',  linewidth=0.75)
     shift = next((i for i, x in enumerate(dict[3]) if x), 0)
     ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3',  linewidth=0.75)
-    plt.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
+    if next((i for i, x in enumerate(dict[4]) if x), 0) != 0:
+        plt.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
 
     plt.yscale('log')
     ax.set_ylabel(r'Frequency of Change in $\beta_1$')
@@ -257,7 +259,8 @@ def draw_frequencies_2(dict, changes, folder_name):
     ax.plot(range(shift, l), dict[2][shift:], color='tab:blue', label='+2', linewidth=0.75)
     shift = next((i for i, x in enumerate(dict[3]) if x), 0)
     ax.plot(range(shift, l), dict[3][shift:], color='tab:purple', label='+3', linewidth=0.75)
-    ax.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
+    if next((i for i, x in enumerate(dict[4]) if x), 0) != 0:
+        ax.scatter(ch_4, y_4, s=5, marker='o', color="tab:brown", label='+4')
 
     plt.yscale('log')
     ax.set_ylabel(r'Frequency of Change in $\beta_2$')
