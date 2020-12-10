@@ -56,18 +56,7 @@ def convert_gudhi(process, folder_name):
     pbar.close()
     return filename
 
-def gudhi_analysis(filename, final_barcode, time):
-    print('What is the minimum length of the interval? Enter 3 numbers one by one. ')
-    length = []
-    for i in range(3):
-        print("Minimal length for Betti_"+str(i+1)+':')
-        while True:
-            try:
-                x = int(input())
-                length.append(x)
-                break
-            except ValueError:
-                print("Oops!  That was no valid number.  Try again...")
+def gudhi_analysis(filename, final_barcode, folder_name, length):
     print("\nCreating Cubical Complex...")
     eden_model = gd.CubicalComplex(perseus_file=filename)
     eden_model.persistence()

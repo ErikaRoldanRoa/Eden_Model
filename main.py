@@ -31,7 +31,7 @@ if dim <= 3:
     # pic = 0
 
 """NO FILE CASE"""
-if file == 0:
+if not file:
     print('How many tiles would you like in your model?')
     while True:
         try:
@@ -39,6 +39,22 @@ if file == 0:
             break
         except ValueError:
             print("Oops!  That was no valid number.  Try again...")
+
+    if gudhi:
+        if dim == 2:
+            print('What is the minimum length of the interval? Enter 1 number.')
+        else:
+            print('What is the minimum length of the interval? Enter '+str(dim-1)+' numbers one by one. ')
+        length = []
+    for i in range(dim-1):
+        print("Minimal length for Betti_"+str(i+1)+':')
+        while True:
+            try:
+                x = int(input())
+                length.append(x)
+                break
+            except ValueError:
+                print("Oops!  That was no valid number.  Try again...")
 
     now = datetime.now()
     dt_string = now.strftime("%d:%m:%Y_%H.%M.%S")
@@ -92,10 +108,11 @@ if file == 0:
         plot_b_per(Betti_1_total_vector, Betti_2_total_vector, Perimeter_len, Time, 0, folder_name)
         draw_diagram_holes(Created_holes, Holes, folder_name)
 
-        print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process)
-        print("\nDrawing Barcodes...")
-        gudhi_analysis(Filename, Final_barcode, Time)
+        if gudhi:
+            print("\nCreating Gudhi file...")
+            Filename = convert_gudhi(Process, folder_name)
+            print("\nDrawing Barcodes...")
+            gudhi_analysis(Filename, Final_barcode, folder_name, length)
 
         if pic == 1:
             a = 1
@@ -130,11 +147,11 @@ if file == 0:
         except RuntimeError:
             print("Unable to draw \"Betti vs Perimeter\". The Complex is too small.")
 
-        print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process, folder_name)
-        # Filename = '4d/gudhi_10000.txt'
-        print("\nDrawing Barcodes...")
-        gudhi_analysis(Filename, Final_barcode, folder_name, length)
+        if gudhi:
+            print("\nCreating Gudhi file...")
+            Filename = convert_gudhi(Process, folder_name)
+            print("\nDrawing Barcodes...")
+            gudhi_analysis(Filename, Final_barcode, folder_name, length)
     elif dim == 5:
         from e_5d import grow_eden, draw_frequencies_4, return_frequencies_4, plot_b_per,\
             convert_gudhi, gudhi_analysis
@@ -160,11 +177,11 @@ if file == 0:
             print("Unable to draw \"Diagram of Holes\". The Complex is too small.")
         plot_b_per(Betti_4_total_vector, Perimeter_len, Time, 0, folder_name)
 
-        print("\nCreating Gudhi file...")
-        Filename = convert_gudhi(Process, folder_name)
-        # Filename = '5d/gudhi_3000.txt'
-        print("\nComputing Persistence Homology with GUDHI...")
-        gudhi_analysis(Filename, Final_barcode, folder_name, length)
+        if gudhi:
+            print("\nCreating Gudhi file...")
+            Filename = convert_gudhi(Process, folder_name)
+            print("\nComputing Persistence Homology with GUDHI...")
+            gudhi_analysis(Filename, Final_barcode, folder_name, length)
 
 """FILE CASE"""
 if file == 1:

@@ -115,18 +115,7 @@ def convert_perseus_2(Process):
             y = (x[0], x[1], x [2], x[3], x[4], i)
             f.writelines( '%s %s %s %s %s %s\n' % y)
 
-def gudhi_analysis(filename, final_barcode, time):
-    print('What is the minimum length of the interval? Enter 4 numbers one by one. ')
-    length = []
-    for i in range(4):
-        print("Minimal length for Betti_"+str(i+1)+':')
-        while True:
-            try:
-                x = int(input())
-                length.append(x)
-                break
-            except ValueError:
-                print("Oops!  That was no valid number.  Try again...")
+def gudhi_analysis(filename, final_barcode, folder_name, length):
     print('\nCreating Cubical Complex...')
     eden_model = gd.CubicalComplex(perseus_file=filename)
     print('Computing Persistence...')
