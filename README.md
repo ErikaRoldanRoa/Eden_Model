@@ -91,7 +91,7 @@ What is the format of the file?
 0 -- list of tuples 
 1 -- Perseus
 ```
-And then you should give a name of a file:
+And then you should give a name of a file. Important: the file should be in the folder *files* inside the folder with the corresponding dimension, e.g. *5d/files*.
 ```
 Name of the file (for example, filename.txt):
 ```
@@ -111,9 +111,9 @@ Do you want GUDHI barcode(s)?
 ```
 and if yes, it asks you to specify the minimum length of the interval for every barcode (depending on the dimension of the model).
 It is done in order to omit short-lived homology groups, i.e. short intervals.
-\\
+<br />
 After that, the modeling and analysis take place.  
-
+<br />
 When all calculations are finished, you will see the sentence:
 ```
 WE ARE DONE! CHECK THE FOLDER!
@@ -123,7 +123,7 @@ Now, you are welcome to check the results in the corresponding folder.
 In case you have analyzed a model from a file, the program creates a folder that has the name of the file inside the folder with the corresponding dimension.
 For example, if you analyze a 3-dimension model from a file *data.txt*, then the analysis results can be found in the folder:
 ```
-3d/data.txt/ 
+3d/data.txt
 ```
 Otherwise, that is, if you generate your own models. The results of the obtained models are saved in the folders *#tiles_date_time* inside the folder with the corresponding dimension.
 For example, if you generate two 4-dimensional models with 10 000 tiles each, possible two folders that software will generate are:
