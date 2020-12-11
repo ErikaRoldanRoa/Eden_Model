@@ -13,13 +13,13 @@ DATE: December 15, 2020
 LICENSE: GNU GENERAL PUBLIC LICENSE (see license.txt)
 
 ## Overview 
-This package includes software to run simulations of the Eden Growth Model in Z^d in dimensions 2-5, and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a .txt file with the time at which tiles should be added. This allows analysis of simulations from other stochastic models. Note: the cells in a .txt file should be in chronological order. For graphical representation, the program can create a picture of a two-dimensional growth model, and can output a .txt file for 3-dimensional growth modles which can be inputed to MAYA to produce an interactive 3-dimensional image.
+This package includes software to run simulations of the Eden Growth Model in Z^d in dimensions 2-5, and analyze the topology (Betti numbers and persistent homology) and local geometry of the structure. The software is also able to read a .txt file with the time at which tiles should be added. This allows analysis of simulations from other stochastic models. Note: the cells in a .txt file should be in chronological order. For graphical representation, the program can create a picture of a two-dimensional growth model and can output a .txt file for 3-dimensional growth modles which can be inputed to MAYA to produce an interactive 3-dimensional image.
 
 GUDHI is used to compute homology and persistent homology in 3D, 4D, and 5D. If you use this functionality, make sure to cite this library.
 
 To represent the topology and local geometry of the Eden growth model, the software can build plots showing the following:
 * the frequencies of the changes in Betti numbers (Figure 6.1 in the paper),
-* the distributionvolumes of top dimensional "holes" (the finite components of the complement of the structure due to Alexander duality, Figure 6.5 in the paper),
+* the distribution of volumes of top dimensional "holes" (the finite components of the complement of the structure due to Alexander duality, Figure 6.5 in the paper),
 * the growth of the Betti numbers and the perimeter (Figure 6.2 in the paper),
 * in two and three dimensions, the frequencies of top dimensional holes with specific shapes with 3 and 4 cells (Table 6.4 in the paper) 
 
@@ -99,15 +99,41 @@ If you chose to generate a new model, then now the system asks you to enter the 
 ```
 How many tiles would you like in your model?
 ```
-After that, the modeling and analysis is complete. 
-Before creating barcodes, the program will ask you to specify the minimum length of the interval for every barcode (depending on the dimension of the model).
+And then you have to specify the number of models you want to generate:
+```
+How many models would you like to build?
+```
+In the end, the program asks you if you want to generate GUDHI barcodes:
+```
+Do you want GUDHI barcode(s)? 
+0 -- no 
+1 -- yes
+```
+and if yes, it asks you to specify the minimum length of the interval for every barcode (depending on the dimension of the model).
 It is done in order to omit short-lived homology groups, i.e. short intervals.
+\\
+After that, the modeling and analysis is complete.  
 
 When all calculations are finished, you will see the sentence:
 ```
 WE ARE DONE! CHECK THE FOLDER!
 ```
 Now, you are welcome to check the results in the corresponding folder. 
+\\
+In case you have analyzed a model from a file, the program creates a folder that has the name of the file inside the folder with the corresponding dimension.
+For example, if you analyze a 3-dimension model from a file *data.txt*, then the analysis results can be found in the folder:
+```
+3d/data.txt/ 
+```
+Otherwise, that is, if you generate your own models. The results of the obtained models are saved in the folders *#tiles_date_time* inside the folder with the corresponding dimension.
+For example, if you generate two 4-dimensional models with 10 000 tiles each, possible two folders that software will generate are:
+```
+4d/10k_11/12/2020_15.07.04
+```
+```
+4d/10k_11/12/2020_15.07.21
+```
+
 
 
 
