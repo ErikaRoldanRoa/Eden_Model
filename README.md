@@ -119,7 +119,7 @@ When all calculations are finished, you will see the sentence:
 WE ARE DONE! CHECK THE FOLDER!
 ```
 Now, you are welcome to check the results in the corresponding folder. 
-\\
+<br />
 In case you have analyzed a model from a file, the program creates a folder that has the name of the file inside the folder with the corresponding dimension.
 For example, if you analyze a 3-dimension model from a file *data.txt*, then the analysis results can be found in the folder:
 ```
