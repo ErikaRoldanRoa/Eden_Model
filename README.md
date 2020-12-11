@@ -112,7 +112,7 @@ Do you want GUDHI barcode(s)?
 and if yes, it asks you to specify the minimum length of the interval for every barcode (depending on the dimension of the model).
 It is done in order to omit short-lived homology groups, i.e. short intervals.
 \\
-After that, the modeling and analysis is complete.  
+After that, the modeling and analysis take place.  
 
 When all calculations are finished, you will see the sentence:
 ```
