@@ -1,8 +1,8 @@
 ## Topology and Geometry of the Eden Model
 
 DEVELOPERS: <br />
-Fedor Manin (manin@math.ucsb.edu) <br />
 Anna Krymova (anna.krymova@tum.de) <br />
+Fedor Manin (manin@math.ucsb.edu) <br />
 Erika Roldan (erika.roldan@ma.tum.de) <br />
 Benjamin Schweinhart (bschweinhart@albany.edu) <br />
 
