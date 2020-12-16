@@ -14,20 +14,6 @@ import gudhi as gd
 
 """
 Created on Thu Feb 13 19:04:05 2020
- Hi Anna, with this script you can:
-     generate 2 dimensional ECG processes
-     generate images of the process
-     keep track of all the holes (there is only one kind in 2D)
-     analize PH 
-     
-     I suggest that we go together throw the code. And please, 
-     feel free to make/suggest any changes and comment the code.
-     
-     Remember, the aim is to generate in 3D adding 2 cells.
-     Once you understand this code I will send you the one 
-     in 3D adding 3D cubes if you want me to. But perhaps you would prefer to
-     implement it from zero to have more fun. I am OK with both scenarios
-     and would be happy to talk about the algorithm in any case that you choose.
 @author: Erika Roldan Roa
 """
 """
